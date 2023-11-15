@@ -22,7 +22,7 @@ const findAndEditIncomeType = async (req, res) => {
 
     case "PUT":{
       try{
-        const  updatedIncomeType = await prisma.incomeType.update({
+        const updatedIncomeType = await prisma.incomeType.update({
           where:{
             id: Number(id)
           },

@@ -1,5 +1,5 @@
-import prisma from "../../../helpers/prismaClient.js"
-import handleErrors from "../../../helpers/handleErrors.js"
+import prisma from "../../../../helpers/prismaClient.js"
+import handleErrors from "../../../../helpers/handleErrors.js"
 
 const findAndEditUser = async (req, res) => {
 

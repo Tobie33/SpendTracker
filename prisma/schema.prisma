@@ -19,21 +19,23 @@ model User {
 }
 
 model Income {
-  id         Int          @id @default(autoincrement())
-  incomeType incomeType[]
-  userId     Int          @unique
-  user       User         @relation(fields: [userId], references: [id])
-  amount     Int
-  date       DateTime     @default(now())
+  id           Int        @id @default(autoincrement())
+  incomeType   incomeType @relation(fields: [incomeTypeId], references: [id])
+  incomeTypeId Int
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id])
+  amount       Int
+  date         DateTime   @default(now())
 }
 
 model Expense {
-  id          Int           @id @default(autoincrement())
-  expenseType expenseType[]
-  userId      Int           @unique
-  user        User          @relation(fields: [userId], references: [id])
-  amount      Int
-  date        DateTime      @default(now())
+  id            Int         @id @default(autoincrement())
+  expenseType   expenseType @relation(fields: [expenseTypeId], references: [id])
+  expenseTypeId Int
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  amount        Int
+  date          DateTime    @default(now())
 }
 
 model incomeType {
