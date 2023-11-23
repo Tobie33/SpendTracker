@@ -1,0 +1,25 @@
+.centering{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#__next{
+  .navbar{
+    height:8%;
+    justify-content: space-between !important;
+    #login-signout{
+      width: 200px;
+      #user-profile-pic{
+        border-radius: 50px;
+      }
+      .login-signout-button{
+        height:40px;
+        line-height: 24px;
+      }
+    }
+  }
+  #main-page{
+    height:92%;
+  }
+}

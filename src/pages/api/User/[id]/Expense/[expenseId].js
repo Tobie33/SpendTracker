@@ -1,5 +1,5 @@
 import prisma from "../../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../../helpers/handleErrors.js"
+import handleErrors from "../../../../../helpers/handleErrors.js/index.js"
 
 const expenseRecordEditsAndSearch = async (req, res)=> {
   const {method, query: {id, expenseId}, body: {expenseTypeId, amount}} = req
