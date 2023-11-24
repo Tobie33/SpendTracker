@@ -23,10 +23,10 @@ const PageNavbar = () => {
             id="user-profile-pic"
 
             ></Image>
-          <Button className="login-signout-button" onClick={() => signOut()}>Sign out</Button>
+          <Button className="login-signout-button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
         </div>
         :
-          <Button className="login-signout-button" onClick={() => signIn()}>Log in / Sign in</Button>
+          <Button className="login-signout-button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>
         }
     </Navbar>
   )

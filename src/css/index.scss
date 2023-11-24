@@ -6,7 +6,7 @@
 
 #__next{
   .navbar{
-    height:8%;
+    height:8vh;
     justify-content: space-between !important;
     #login-signout{
       width: 200px;
@@ -20,6 +20,24 @@
     }
   }
   #main-page{
-    height:92%;
+    height:92vh;
+    #topics-button{
+      width:50%;
+      height:100%;
+      #topics{
+        margin: 150px 0;
+        .topic{
+          font-size: 50px;
+        }
+      }
+      #login-button{
+        height:75px;
+        width:150px;
+      }
+    }
+    #image-section{
+      width:50%;
+      height:100%
+    }
   }
 }
