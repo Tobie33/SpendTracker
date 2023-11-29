@@ -1,8 +1,8 @@
-import prisma from "../../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../../helpers/handleErrors.js/index.js"
+import prisma from "../../../helpers/prismaClient"
+import handleErrors from "../../../helpers/handleErrors.js"
 
 const incomeRecordEditsAndSearch = async (req, res)=> {
-  const {method, query: {id, incomeId}, body: {incomeTypeId, amount}} = req
+  const {method, query: {incomeId}, body: {incomeTypeId, amount}} = req
 
   switch(method){
     case "GET":{
@@ -21,6 +21,14 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
 
     case "PUT": {
       try{
+        const currentIncomeRecord = await prisma.income.findUnique({
+          where:{
+            id: Number(incomeId)
+          }
+        })
+
+        const originalRecordBalance = currentIncomeRecord.amount
+
         const updatedIncomeRecord = await prisma.income.update({
           data:{
             incomeTypeId,
@@ -31,9 +39,21 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
           }
         })
 
-        return res.status(200).json(updatedIncomeRecord)
-      }catch(err){
+        const deficitOrSurplus = originalRecordBalance - amount
 
+        const userUpdatedBalance = await prisma.user.update({
+          data:{
+            incomeBalance:{
+              increment: deficitOrSurplus
+            }
+          },
+          where:{
+            id: Number(id)
+          },
+        })
+      return res.status(200).json(updatedIncomeRecord, userUpdatedBalance)
+      }catch(err){
+        return handleErrors(res,err)
       }
     }
 

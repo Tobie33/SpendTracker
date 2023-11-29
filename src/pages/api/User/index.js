@@ -31,7 +31,6 @@ const createAndGetUsers = async (req, res) => {
           return handleErrors(res, err)
         }
     }
-
     default:
       res.setHeader('Allow', ['GET', 'POST'])
       res.status(405).end('Unauthorized')

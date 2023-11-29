@@ -6,8 +6,6 @@ import Link from "next/link"
 const PageNavbar = () => {
   const { data: session } = useSession()
 
-  console.log(session?.user)
-
   return (
     <Navbar className="bg-body-tertiary px-5">
     <div>

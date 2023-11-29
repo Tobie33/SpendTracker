@@ -8,6 +8,8 @@ const apiURL = '/api/IncomeType'
 
 const useIncomeType = (id)=> {
 
+  const {data, error, isLoading} = useSWR(`${apiURL}/${id}`, fetcher)
+
   const deleteIncomeType = (id) => axios.delete(`${apiURL}/${id}`)
   .then((res)=> {
     console.log(res)
@@ -25,6 +27,9 @@ const useIncomeType = (id)=> {
   .catch((err)=> {console.log(err)})
 
   return {
+    data,
+    error,
+    isLoading,
     deleteIncomeType,
     editIncomeType
   }

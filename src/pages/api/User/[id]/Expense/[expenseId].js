@@ -43,7 +43,7 @@ const expenseRecordEditsAndSearch = async (req, res)=> {
 
         const userUpdatedBalance = await prisma.user.update({
           data:{
-            balance:{
+            expenseBalance:{
               increment: deficitOrSurplus
             }
           },
@@ -54,7 +54,7 @@ const expenseRecordEditsAndSearch = async (req, res)=> {
 
         return res.status(200).json(updatedExpenseRecord, userUpdatedBalance)
       }catch(err){
-
+        return handleErrors(res,err)
       }
     }
 
@@ -70,7 +70,7 @@ const expenseRecordEditsAndSearch = async (req, res)=> {
 
         await prisma.user.update({
           data:{
-            balance:{
+            expenseBalance:{
               increment: amount
             }
           },

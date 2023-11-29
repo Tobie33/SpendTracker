@@ -32,7 +32,7 @@ const expenseRecord = async (req, res) => {
 
         const userUpdatedBalance = await prisma.user.update({
           data:{
-            balance:{
+            expenseBalance:{
               decrement: amount
             }
           },

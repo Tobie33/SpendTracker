@@ -1,5 +1,5 @@
 import prisma from "../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../helpers/handleErrors.js/index.js"
+import handleErrors from "../../../../helpers/handleErrors.js"
 
 const findAndEditUser = async (req, res) => {
 
@@ -10,7 +10,11 @@ const findAndEditUser = async (req, res) => {
       try{
         const user = await prisma.user.findUnique({
           where:{
-            id: Number(id)
+            id
+          },
+          include:{
+            Incomes: true,
+            Expense: true
           }
         })
 
@@ -37,8 +41,16 @@ const findAndEditUser = async (req, res) => {
       }
     }
 
+    case "DELETE":{
+      await prisma.user.delete({
+        where:{
+          id
+        }
+      })
+    }
+
     default:{
-      res.setHeader('Allow', ['GET', 'PUT'])
+      res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])
       res.status(405).end('Unauthorized')
     }
 

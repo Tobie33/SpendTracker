@@ -1,16 +1,21 @@
-import prisma from "../../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../../helpers/handleErrors.js/index.js"
+import prisma from "../../../helpers/prismaClient.js"
+import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
+
 
 const incomeRecord = async (req, res) => {
 
-  const {method, query:{id}, body: {incomeTypeId, amount}} = req
+  const session = await getServerSession(req, res, authOptions)
+
+  const {method, body: {amount, incomeTypeId}} = req
 
   switch(method){
     case 'GET': {
       try{
         const allIncomeRecords = await prisma.income.findMany({
           where:{
-            userId:Number(id)
+            userId:session.user.id
           }
         })
 
@@ -25,19 +30,20 @@ const incomeRecord = async (req, res) => {
         const createIncomeRecord = await prisma.income.create({
           data:{
             incomeTypeId,
-            userId: Number(id),
+            userId: session.user.id,
             amount
+
           }
         })
 
         const userUpdatedBalance = await prisma.user.update({
           data:{
-            balance:{
+            incomeBalance:{
               increment: amount
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
 
@@ -46,8 +52,27 @@ const incomeRecord = async (req, res) => {
         handleErrors(res,err)
       }
     }
+
+    case "DELETE": {
+      await prisma.income.deleteMany({
+        where:{
+          userId: "clpbc93740009rcunk749qrvl"
+        }
+      })
+
+
+      await prisma.user.update({
+        where:{
+          id: "clpbc93740009rcunk749qrvl"
+        },
+        data:{
+          incomeBalance: 0
+        }
+      })
+      return res.status(200).end('DESTORYED')
+    }
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
       res.status(405).end('Unauthorized')
   }
 }

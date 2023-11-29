@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "expenseBalance" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "incomeBalance" INTEGER NOT NULL DEFAULT 0;

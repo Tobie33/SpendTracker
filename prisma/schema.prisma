@@ -38,15 +38,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Incomes       Income[]
-  Expense       Expense[]
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  incomeBalance  Int       @default(0)
+  expenseBalance Int       @default(0)
+  accounts       Account[]
+  sessions       Session[]
+  Incomes        Income[]
+  Expense        Expense[]
 }
 
 model VerificationToken {
@@ -68,13 +70,13 @@ model Income {
 }
 
 model Expense {
-  id            Int         @id @default(autoincrement())
-  expenseType   expenseType @relation(fields: [expenseTypeId], references: [id])
+  id            Int          @id @default(autoincrement())
+  expenseType   expenseType? @relation(fields: [expenseTypeId], references: [id])
   expenseTypeId Int
   userId        String
-  user          User        @relation(fields: [userId], references: [id])
+  user          User?        @relation(fields: [userId], references: [id])
   amount        Int
-  date          DateTime    @default(now())
+  date          DateTime     @default(now())
 }
 
 model incomeType {
