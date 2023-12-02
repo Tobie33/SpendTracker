@@ -60,23 +60,25 @@ model VerificationToken {
 }
 
 model Income {
-  id           Int        @id @default(autoincrement())
-  incomeType   incomeType @relation(fields: [incomeTypeId], references: [id])
-  incomeTypeId Int
-  userId       String
-  user         User       @relation(fields: [userId], references: [id])
-  amount       Int
-  date         DateTime   @default(now())
+  id             Int        @id @default(autoincrement())
+  incomeType     incomeType @relation(fields: [incomeTypeId], references: [id])
+  incomeTypeName String     @default("")
+  incomeTypeId   Int
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  amount         Int
+  date           DateTime   @default(now())
 }
 
 model Expense {
-  id            Int          @id @default(autoincrement())
-  expenseType   expenseType? @relation(fields: [expenseTypeId], references: [id])
-  expenseTypeId Int
-  userId        String
-  user          User?        @relation(fields: [userId], references: [id])
-  amount        Int
-  date          DateTime     @default(now())
+  id              Int          @id @default(autoincrement())
+  expenseType     expenseType? @relation(fields: [expenseTypeId], references: [id])
+  expenseTypeName String       @default("")
+  expenseTypeId   Int
+  userId          String
+  user            User?        @relation(fields: [userId], references: [id])
+  amount          Int
+  date            DateTime     @default(now())
 }
 
 model incomeType {

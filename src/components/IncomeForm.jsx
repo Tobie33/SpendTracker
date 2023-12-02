@@ -9,7 +9,7 @@ import { useSWRConfig } from 'swr'
 
 
 
-const CreateRecordForm = (props) => {
+const IncomeForm = (props) => {
 
   const { mutate } = useSWRConfig()
   const {data: incomeTypes, error, isLoading} = useIncomeTypes()
@@ -79,4 +79,4 @@ const CreateRecordForm = (props) => {
   )
 }
 
-export default CreateRecordForm
+export default IncomeForm

@@ -1,16 +1,20 @@
-import prisma from "../../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../../helpers/handleErrors.js/index.js"
+import prisma from "../../../helpers/prismaClient.js"
+import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
 
 const expenseRecord = async (req, res) => {
 
-  const {method, query:{id}, body: {expenseTypeId, amount}} = req
+  const session = await getServerSession(req, res, authOptions)
+
+  const {method, body: {expenseTypeId, amount}} = req
 
   switch(method){
     case 'GET': {
       try{
         const allExpenseRecords = await prisma.expense.findMany({
           where:{
-            userId:Number(id)
+            userId:session.user.id
           }
         })
 
@@ -21,11 +25,22 @@ const expenseRecord = async (req, res) => {
     }
 
     case 'POST': {
+
       try{
+        const selectedExpenseType = await prisma.expenseType.findUnique({
+          where:{
+            id: expenseTypeId
+          }
+        })
+
+        const expenseTypeName = selectedExpenseType.name
+
+
         const createExpenseRecord = await prisma.expense.create({
           data:{
             expenseTypeId,
-            userId: Number(id),
+            expenseTypeName,
+            userId: session.user.id,
             amount
           }
         })
@@ -37,7 +52,7 @@ const expenseRecord = async (req, res) => {
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
 

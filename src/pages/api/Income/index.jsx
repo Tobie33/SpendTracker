@@ -27,12 +27,20 @@ const incomeRecord = async (req, res) => {
 
     case 'POST': {
       try{
+        const selectedIncomeType = await prisma.incomeType.findUnique({
+          where:{
+            id: incomeTypeId
+          }
+        })
+
+        const incomeTypeName = selectedIncomeType.name
+
         const createIncomeRecord = await prisma.income.create({
           data:{
             incomeTypeId,
+            incomeTypeName,
             userId: session.user.id,
             amount
-
           }
         })
 
