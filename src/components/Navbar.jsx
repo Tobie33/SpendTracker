@@ -9,7 +9,7 @@ const PageNavbar = () => {
   return (
     <Navbar className="bg-body-tertiary px-5">
     <div>
-        <Navbar.Brand href="#">Budget Tracker</Navbar.Brand>
+        <Navbar.Brand href="/dashboard">Budget Tracker</Navbar.Brand>
     </div>
         {session ?
         <div id="login-signout" className="flex justify-between items-center">

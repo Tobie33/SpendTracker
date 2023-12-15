@@ -30,6 +30,7 @@ const IncomePage = () => {
 
           return (
             <div key={record.id}>
+              <h3>{record.id}</h3>
               <h3>{record.amount}</h3>
               <h3>{record.incomeTypeName}</h3>
             </div>

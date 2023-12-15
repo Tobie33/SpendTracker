@@ -3,7 +3,7 @@ import  {Button}  from "react-bootstrap"
 import { useFormik } from 'formik';
 import useIncomeType from "../hooks/useIncomeType";
 import { mutate } from "swr";
-import EditForm from "../components/EditForm";
+import EditForm from "./IncomeEditForm";
 
 const IncomeType = () => {
   const {data, error, isLoading, createIncomeTypes} = useIncomeTypes()

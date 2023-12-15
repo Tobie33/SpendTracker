@@ -1,12 +1,16 @@
 import prisma from "../../../helpers/prismaClient"
 import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
 
 const incomeRecordEditsAndSearch = async (req, res)=> {
-  const {method, query: {incomeId}, body: {incomeTypeId, amount}} = req
+  const session = await getServerSession(req, res, authOptions)
+  const {method,  body: {incomeTypeId, amount}} = await req
 
   switch(method){
     case "GET":{
       try{
+        let incomeId = await req.query.incomeId
         const incomeRecord = await prisma.income.findUnique({
           where:{
             id: Number(incomeId)
@@ -21,6 +25,7 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
 
     case "PUT": {
       try{
+        let incomeId = await req.query.incomeId
         const currentIncomeRecord = await prisma.income.findUnique({
           where:{
             id: Number(incomeId)
@@ -48,7 +53,7 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
       return res.status(200).json(updatedIncomeRecord, userUpdatedBalance)

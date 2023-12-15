@@ -1,8 +1,13 @@
-import prisma from "../../../../../helpers/prismaClient.js"
-import handleErrors from "../../../../../helpers/handleErrors.js/index.js"
+import prisma from "../../../helpers/prismaClient"
+import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
+
 
 const expenseRecordEditsAndSearch = async (req, res)=> {
-  const {method, query: {id, expenseId}, body: {expenseTypeId, amount}} = req
+  const session = await getServerSession(req, res, authOptions)
+    const {method, query:{expenseId}, body: {expenseTypeId, amount}} = await req
+
 
   switch(method){
     case "GET":{
@@ -48,7 +53,7 @@ const expenseRecordEditsAndSearch = async (req, res)=> {
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
 

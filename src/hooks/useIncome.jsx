@@ -1,32 +1,25 @@
 import useSWR from 'swr'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
 const apiURL = '/api/Income'
 
 
-const useIncome = () => {
+const useIncome = (incomeId) => {
 
-  const router = useRouter()
-  const {query: {incomeId}} = router
+  const {data, mutate, error, isLoading} = useSWR(incomeId ? `${apiURL}/${incomeId}` : null, fetcher)
 
-
-  const {data, mutate, error, isLoading} = useSWR(`${apiURL}/${incomeId}`, fetcher)
-
-
-  const createIncome = (amount, incomeTypeId, userId) => axios.post(apiURL,
-    {
+  const editIncome = (amount, incomeTypeId, incomeId) => axios.put(incomeId ? `${apiURL}/${incomeId}` : null,{
     amount: Number(amount),
-    incomeTypeId: Number(incomeTypeId),
-    userId
-    })
-    .then((res) =>
-    mutate()
-    )
-    .catch((err) => {
-      console.log(err);
+    incomeTypeId
+  })
+  .then((res)=>{
+    console.log(res)
+    mutate(`${apiURL}/${incomeId}`)
+  })
+  .catch((err) => {
+    console.log(err)
   })
 
   return{
@@ -34,7 +27,7 @@ const useIncome = () => {
     mutate,
     error,
     isLoading,
-    createIncome
+    editIncome
   }
 }
 

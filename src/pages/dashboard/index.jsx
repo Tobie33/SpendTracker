@@ -9,8 +9,6 @@ const Dashboard = () => {
   const userId = session?.user?.id
   const {data} = useUser(userId)
 
-  console.log(data)
-
   const balance = data?.incomeBalance + data?.expenseBalance
 
   return (

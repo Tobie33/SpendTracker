@@ -8,7 +8,7 @@ const incomeRecord = async (req, res) => {
 
   const session = await getServerSession(req, res, authOptions)
 
-  const {method, body: {amount, incomeTypeId}} = req
+  const {method, body: {amount, incomeTypeId}} = await req
 
   switch(method){
     case 'GET': {

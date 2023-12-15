@@ -1,16 +1,15 @@
-import useIncome from "../../../hooks/useIncome"
+import useExpense from "../../../hooks/useExpense"
 import { Button } from "react-bootstrap"
 import { useState } from "react"
-import IncomeEditForm from "../../../components/IncomeEditForm"
+import ExpenseEditForm from "../../../components/ExpenseEditForm"
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
 
 const IncomePage = () => {
 
-
   const router = useRouter()
-  let incomeId =  router.query.incomeId
-  const {data: record} = useIncome(incomeId)
+  let expenseId =  router.query.expenseId
+  const {data: record} = useExpense(expenseId)
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -25,13 +24,13 @@ const IncomePage = () => {
             {record?.amount}
           </div>
           <div>
-            {record?.incomeTypeName}
+            {record?.expenseTypeName}
           </div>
         </Card.Body>
       </Card>
       <Button onClick={() => setModalShow(true)}>Edit Record</Button>
-      <IncomeEditForm
-        incomeid={incomeId}
+      <ExpenseEditForm
+        expenseid={expenseId}
         show={modalShow}
         record={record}
         onHide={() => setModalShow(false)

@@ -29,6 +29,7 @@ const IncomePage = () => {
         {expenseRecords?.map(record => {
           return (
             <div key={record.id}>
+              <h3>{record.id}</h3>
               <h3>{record.amount}</h3>
               <h3>{record.expenseTypeName}</h3>
             </div>

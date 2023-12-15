@@ -2,31 +2,29 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form'
 import { useFormik } from 'formik';
-import useIncomeTypes from '../hooks/useIncomeTypes';
-import useIncomes from '../hooks/useIncomes';
-import { useSession } from 'next-auth/react';
+import useExpenseTypes from '../hooks/useExpenseTypes';
+import useExpense from '../hooks/useExpense';
 import { useSWRConfig } from 'swr'
 
 
 
-const IncomeForm = (props) => {
+const ExpenseEditForm = (props) => {
 
   const { mutate } = useSWRConfig()
-  const {data: incomeTypes, error, isLoading} = useIncomeTypes()
-  const {createIncome} = useIncomes()
-  const {data : session} = useSession()
-  const userId = session?.user?.id
+  const {data: expenseTypes, error, isLoading} = useExpenseTypes()
+  const {editExpense} = useExpense()
 
   const onSubmit = (e) => {
-    createIncome(e.amount, e.incomeTypeId, userId)
-    mutate('/api/Income')
+    console.log(e)
+    editExpense(e.amount, e.expenseTypeId, props.expenseid)
+    mutate(`/api/Expense/${props.expenseid}`)
   }
 
-
   const {values, handleChange,handleSubmit} = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      amount: '',
-      incomeTypeId: ''
+      amount: props.record?.amount,
+      expenseTypeId: props.record?.expenseTypeId
     },
     onSubmit
   });
@@ -40,7 +38,7 @@ const IncomeForm = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create a Record
+          Edit Record
         </Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
@@ -58,9 +56,9 @@ const IncomeForm = (props) => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label> select menu</Form.Label>
-            <Form.Select onChange={handleChange} id="incomeTypeId" name="incomeTypeId">
-              {incomeTypes?.map((incomeType, index) =>(
-                <option key={index} value={incomeType.id}>{incomeType.name}</option>
+            <Form.Select value={values.expenseTypeId} onChange={handleChange} id="expenseTypeId" name="expenseTypeId">
+              {expenseTypes?.map((expenseType, index) =>(
+                <option key={index} value={expenseType.id}>{expenseType.name}</option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -79,4 +77,4 @@ const IncomeForm = (props) => {
   )
 }
 
-export default IncomeForm
+export default ExpenseEditForm

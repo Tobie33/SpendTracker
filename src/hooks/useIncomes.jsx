@@ -11,11 +11,10 @@ const useIncomes = () => {
   const {data, mutate, error, isLoading} = useSWR(apiURL, fetcher)
 
 
-  const createIncome = (amount, incomeTypeId, userId) => axios.post(apiURL,
+  const createIncome = (amount, incomeTypeId) => axios.post(apiURL,
     {
     amount: Number(amount),
     incomeTypeId: Number(incomeTypeId),
-    userId
     })
     .then(() =>
       mutate()
