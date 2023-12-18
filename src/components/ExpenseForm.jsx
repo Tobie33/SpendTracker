@@ -11,7 +11,6 @@ import { useSWRConfig } from 'swr'
 
 const ExpenseForm = (props) => {
 
-  const { mutate } = useSWRConfig()
   const {data: expenseTypes, error, isLoading} = useExpenseTypes()
   const {createExpense} = useExpenses()
   const {data : session} = useSession()
@@ -20,7 +19,6 @@ const ExpenseForm = (props) => {
   const onSubmit = (e) => {
     console.log(e)
     createExpense(e.amount, e.expenseTypeId, userId)
-    mutate('/api/Expense')
   }
 
 

@@ -33,6 +33,8 @@ const expenseRecord = async (req, res) => {
           }
         })
 
+        console.log(selectedExpenseType)
+
         const expenseTypeName = selectedExpenseType.name
 
 

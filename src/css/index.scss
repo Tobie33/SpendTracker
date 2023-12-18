@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+a {
+  text-decoration: none;
+}
+
 #__next{
   .navbar{
     height:8vh;
@@ -21,6 +25,7 @@
   }
   #main-page{
     height:92vh;
+    width:100%;
   }
 }
 

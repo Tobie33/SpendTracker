@@ -4,6 +4,7 @@ import { useState } from "react"
 import IncomeEditForm from "../../../components/IncomeEditForm"
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
+import Link from "next/link";
 
 const IncomePage = () => {
 
@@ -15,7 +16,10 @@ const IncomePage = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <>
+    <div className="m-5">
+      <div className="w-full h-32">
+        <Link href={'/dashboard/income'}>Back to Income Page</Link>
+      </div>
       <Card >
         <Card.Body className="flex flex-row justify-between">
           <div>
@@ -37,7 +41,7 @@ const IncomePage = () => {
         onHide={() => setModalShow(false)
         }
       />
-    </>
+    </div>
   )
 
 }

@@ -5,9 +5,12 @@ import { Button } from "react-bootstrap"
 import ExpenseForm from "../../../components/ExpenseForm"
 import { useState } from "react"
 import useExpenses from "../../../hooks/useExpenses"
+import Link from "next/link"
+import Card from "react-bootstrap/Card"
+import FadeIn from "react-fade-in/lib/FadeIn"
 
 
-const IncomePage = () => {
+const ExpensePage = () => {
 
   const {data : session} = useSession()
   const userId = session?.user?.id
@@ -17,33 +20,51 @@ const IncomePage = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <main id="main-page" className="flex">
+    <div className="flex h-full">
       <SideNav/>
-    <h1>Expense Page</h1>
-    {expenseRecords?.length === 0 ?
-      <aside>
-        <h1>No Expense Record!</h1>
-      </aside>
-      :
-      <aside>
-        {expenseRecords?.map(record => {
-          return (
-            <div key={record.id}>
-              <h3>{record.id}</h3>
-              <h3>{record.amount}</h3>
-              <h3>{record.expenseTypeName}</h3>
-            </div>
-          )
-        })}
-      </aside>
-      }
-      <Button onClick={() => setModalShow(true)}>Create Record</Button>
-      <ExpenseForm
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </main>
+      <main id="expense-page" className="m-3">
+        <div className="flex balance-detail">
+          <div className="flex flex-col balance-section">
+            <h1>Current Expense: {data?.expenseBalance}</h1>
+            <Button className="mt-20 ms-5" onClick={() => setModalShow(true)}>Create Record</Button>
+            <ExpenseForm
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
+          </div>
+          <h2 className="balance-section text-center">Circular Thing</h2>
+        </div>
+        {expenseRecords?.length === 0 ?
+          <div>
+            <h1>No Expense Record!</h1>
+          </div>
+          :
+          <div>
+            <FadeIn>
+              {expenseRecords?.map((record,index) => (
+                <Link key={index} href={`/dashboard/expense/${record.id}`}>
+                  <Card className="mb-1">
+                    <Card.Body className="flex flex-row justify-between">
+                      <div>
+                        {record?.id}
+                      </div>
+                      <div>
+                        {record?.amount}
+                      </div>
+                      <div>
+                        {record?.expenseTypeName}
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Link>
+                )
+              )}
+            </FadeIn>
+          </div>
+          }
+      </main>
+    </div>
   )
 }
 
-export default IncomePage
+export default ExpensePage

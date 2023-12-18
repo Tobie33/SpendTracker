@@ -5,6 +5,9 @@ import { Button } from "react-bootstrap"
 import IncomeForm from "../../../components/IncomeForm"
 import { useState } from "react"
 import useIncomes from "../../../hooks/useIncomes"
+import Link from "next/link"
+import Card from "react-bootstrap/Card"
+import FadeIn from "react-fade-in"
 
 
 const IncomePage = () => {
@@ -17,33 +20,50 @@ const IncomePage = () => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <main id="main-page" className="flex">
+    <div className="flex h-full">
       <SideNav/>
-    <h1> Income Page</h1>
-    {incomeRecords?.length === 0 ?
-      <aside>
-        <h1>No Income Record!</h1>
-      </aside>
-      :
-      <aside>
-        {incomeRecords?.map(record => {
-
-          return (
-            <div key={record.id}>
-              <h3>{record.id}</h3>
-              <h3>{record.amount}</h3>
-              <h3>{record.incomeTypeName}</h3>
-            </div>
-          )
-        })}
-      </aside>
-      }
-      <Button onClick={() => setModalShow(true)}>Create Record</Button>
-      <IncomeForm
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </main>
+      <main id="income-page" className="m-3 w-full">
+        <div className="flex balance-detail">
+          <div className="flex flex-col balance-section w-3/6 h-80">
+            <h1>Current Income: {data?.incomeBalance}</h1>
+            <Button className="mt-20 ms-5 w-40" onClick={() => setModalShow(true)}>Create Record</Button>
+            <IncomeForm
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
+          </div>
+          <h2 className="balance-section text-center w-3/6 h-80">Circular Thing</h2>
+        </div>
+        {incomeRecords?.length === 0 ?
+          <div>
+            <h1>No Income Record!</h1>
+          </div>
+          :
+          <div>
+            <FadeIn>
+              {incomeRecords?.map((record,index) => (
+                <Link key={index} href={`/dashboard/income/${record.id}`}>
+                  <Card className="mb-1">
+                    <Card.Body className="flex flex-row justify-between">
+                      <div>
+                        {record?.id}
+                      </div>
+                      <div>
+                        {record?.amount}
+                      </div>
+                      <div>
+                        {record?.incomeTypeName}
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Link>
+                )
+              )}
+            </FadeIn>
+          </div>
+          }
+      </main>
+    </div>
   )
 }
 

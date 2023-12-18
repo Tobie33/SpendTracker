@@ -1,3 +1,10 @@
 #dashboard-page{
   width:90%;
+  #income, #expense, #balance-amount, #balance-circular {
+    width:50%;
+    text-align: center;
+  }
+  .record-cards{
+    width:50%;
+  }
 }

@@ -80,7 +80,7 @@ const expenseRecordEditsAndSearch = async (req, res)=> {
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
 

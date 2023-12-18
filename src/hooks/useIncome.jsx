@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -7,6 +8,8 @@ const apiURL = '/api/Income'
 
 
 const useIncome = (incomeId) => {
+
+  const {push} = useRouter()
 
   const {data, mutate, error, isLoading} = useSWR(incomeId ? `${apiURL}/${incomeId}` : null, fetcher)
 
@@ -22,12 +25,21 @@ const useIncome = (incomeId) => {
     console.log(err)
   })
 
+  const deleteIncome = (incomeId) => axios.delete(`${apiURL}/${incomeId}`)
+  .then(()=>{
+    push('/dashboard/income')
+  })
+  .error((err)=>{
+    console.log(err)
+  })
+
   return{
     data,
     mutate,
     error,
     isLoading,
-    editIncome
+    editIncome,
+    deleteIncome
   }
 }
 
