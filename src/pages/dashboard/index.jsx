@@ -5,6 +5,8 @@ import { Button } from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import Link from "next/link"
 import FadeIn from 'react-fade-in';
+import { Doughnut } from "react-chartjs-2"
+import {Chart as ChartJS} from 'chart.js/auto'
 
 
 
@@ -13,17 +15,40 @@ const Dashboard = () => {
   const userId = session?.user?.id
   const {data} = useUser(userId)
 
+  const chartData = {
+    labels: [
+      'Income',
+      'Expense'
+    ],
+    datasets:[{
+      data:[
+        data?.incomeBalance,
+        data?.expenseBalance * -1
+      ],
+      backgroundColor:[
+        '#79ea86',
+        '#e75757'
+      ],
+      borderColor: '#000000',
+      borderWidth: 1.5
+    }]
+  }
+
   const balance = data?.incomeBalance + data?.expenseBalance
 
   return (
     <main id="main-page" className="flex">
       <SideNav/>
       <div id="dashboard-page" className="m-3">
-        <div id="balance" className="flex">
-          <h1 id="balance-amount">Balance: {balance}</h1>
-          <h1 id="balance-circular">Circular thingy</h1>
+        <div className="flex">
+          <div id="balance-amount" className="">
+            <h1>Balance: {balance}</h1>
+          </div>
+          <div id="balance-circular" className="h-80 flex justify-center">
+            <Doughnut data={chartData} height={320} width={320}/>
+          </div>
         </div>
-        <div id="income-expense" className="flex">
+        <div id="income-expense" className="flex my-10">
           <h2 id="income">Income: {data?.incomeBalance}</h2>
           <h2 id="expense">Expense: {data?.expenseBalance}</h2>
         </div>

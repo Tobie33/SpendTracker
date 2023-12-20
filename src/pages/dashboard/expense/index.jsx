@@ -8,6 +8,9 @@ import useExpenses from "../../../hooks/useExpenses"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
 import FadeIn from "react-fade-in/lib/FadeIn"
+import { Doughnut } from "react-chartjs-2"
+import {Chart as ChartJS} from 'chart.js/auto'
+import useExpenseTypes from "../../../hooks/useExpenseTypes"
 
 
 const ExpensePage = () => {
@@ -16,6 +19,14 @@ const ExpensePage = () => {
   const userId = session?.user?.id
   const {data} = useUser(userId)
   const {data: expenseRecords} = useExpenses()
+  const {data: expenseTypes} = useExpenseTypes()
+
+  const doughnutData = {
+    labels: expenseTypes?.map(expenseType => expenseType.name),
+    datasets:[{
+      data: expenseTypes?.map(expenseType => expenseType.expenses.length)
+    }]
+  }
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -32,7 +43,9 @@ const ExpensePage = () => {
               onHide={() => setModalShow(false)}
             />
           </div>
-          <h2 className="balance-section text-center">Circular Thing</h2>
+          <div>
+            <Doughnut data={doughnutData}/>
+          </div>
         </div>
         {expenseRecords?.length === 0 ?
           <div>

@@ -1,14 +1,25 @@
 import prisma from "../../../helpers/prismaClient.js"
 import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
 
 const createAndGetExpenseTypes = async (req,res) => {
+  const session = await getServerSession(req, res, authOptions)
   const {method, body: {name}} = req
 
   switch(method){
 
     case "GET": {
       try{
-        const allExpenseTypes = await prisma.expenseType.findMany()
+        const allExpenseTypes = await prisma.expenseType.findMany({
+          include:{
+            expenses:{
+              where:{
+                userId: session.user.id
+              }
+            }
+          }
+        })
 
         return res.status(200).json(allExpenseTypes)
       } catch (err){

@@ -8,6 +8,9 @@ import useIncomes from "../../../hooks/useIncomes"
 import Link from "next/link"
 import Card from "react-bootstrap/Card"
 import FadeIn from "react-fade-in"
+import { Doughnut } from "react-chartjs-2"
+import {Chart as ChartJS} from 'chart.js/auto'
+import useIncomeTypes from "../../../hooks/useIncomeTypes"
 
 
 const IncomePage = () => {
@@ -16,8 +19,16 @@ const IncomePage = () => {
   const userId = session?.user?.id
   const {data} = useUser(userId)
   const {data: incomeRecords} = useIncomes()
+  const {data: incomeTypes} = useIncomeTypes()
 
   const [modalShow, setModalShow] = useState(false);
+
+  const doughnutData = {
+    labels: incomeTypes?.map(incomeType => incomeType.name),
+    datasets:[{
+      data: incomeTypes?.map(incomeType => incomeType.incomes.length)
+    }]
+  }
 
   return (
     <div className="flex h-full">
@@ -32,7 +43,9 @@ const IncomePage = () => {
               onHide={() => setModalShow(false)}
             />
           </div>
-          <h2 className="balance-section text-center w-3/6 h-80">Circular Thing</h2>
+          <div>
+            <Doughnut data={doughnutData}/>
+          </div>
         </div>
         {incomeRecords?.length === 0 ?
           <div>

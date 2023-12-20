@@ -1,14 +1,26 @@
 import prisma from "../../../helpers/prismaClient.js"
 import handleErrors from "../../../helpers/handleErrors.js"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../auth/[...nextauth].js"
 
 const createAndGetIncomeTypes = async (req,res) => {
+
+  const session = await getServerSession(req, res, authOptions)
   const {method, body: {name}} = req
 
   switch(method){
 
     case "GET": {
       try{
-        const allIncomeTypes = await prisma.incomeType.findMany()
+        const allIncomeTypes = await prisma.incomeType.findMany({
+          include:{
+            incomes:{
+              where:{
+                userId: session.user.id
+              }
+            }
+          }
+        })
 
         return res.status(200).json(allIncomeTypes)
       } catch (err){
