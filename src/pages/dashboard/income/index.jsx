@@ -24,9 +24,9 @@ const IncomePage = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const doughnutData = {
-    labels: incomeTypes?.map(incomeType => incomeType.name),
+    labels: incomeTypes?.filter(incomeType => incomeType.incomes.length > 0).map(incomeType => incomeType.name),
     datasets:[{
-      data: incomeTypes?.map(incomeType => incomeType.incomes.length)
+      data: incomeTypes?.filter(incomeType => incomeType.incomes.length > 0).map(incomeType => incomeType.incomes.length)
     }]
   }
 

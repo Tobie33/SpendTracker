@@ -21,10 +21,17 @@ const ExpensePage = () => {
   const {data: expenseRecords} = useExpenses()
   const {data: expenseTypes} = useExpenseTypes()
 
+  const dataA = {
+    labels: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.name),
+    data: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.expenses.length)
+  }
+
+  console.log(dataA)
+
   const doughnutData = {
-    labels: expenseTypes?.map(expenseType => expenseType.name),
+    labels: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.name),
     datasets:[{
-      data: expenseTypes?.map(expenseType => expenseType.expenses.length)
+      data: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.expenses.length)
     }]
   }
 
