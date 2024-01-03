@@ -63,8 +63,30 @@ const expenseRecord = async (req, res) => {
         handleErrors(res,err)
       }
     }
+
+    case 'DELETE' : {
+      try{
+        await prisma.expense.deleteMany({
+          where:{
+            userId: session.user.id
+          }
+        })
+
+        await prisma.user.update({
+          data:{
+            expenseBalance: 0
+          },
+          where:{
+            id: session.user.id
+          }
+        })
+        return res.status(200).end('Deletion Success')
+      }catch(err){
+        return handleErrors(res,err)
+      }
+    }
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
       res.status(405).end('Unauthorized')
   }
 }

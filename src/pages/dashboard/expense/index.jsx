@@ -11,27 +11,23 @@ import FadeIn from "react-fade-in/lib/FadeIn"
 import { Doughnut } from "react-chartjs-2"
 import {Chart as ChartJS} from 'chart.js/auto'
 import useExpenseTypes from "../../../hooks/useExpenseTypes"
-
+import RecordsSkelton from "../../../components/RecordsSkeleton"
 
 const ExpensePage = () => {
 
   const {data : session} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
-  const {data: expenseRecords} = useExpenses()
+  const {data: expenseRecords, isLoading, deleteExpenses} = useExpenses()
   const {data: expenseTypes} = useExpenseTypes()
 
-  const dataA = {
-    labels: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.name),
-    data: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.expenses.length)
-  }
-
-  console.log(dataA)
+  const filteredData = expenseTypes?.filter(expenseType => expenseType.expenses.length > 0)
 
   const doughnutData = {
-    labels: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.name),
-    datasets:[{
-      data: expenseTypes?.filter(expenseType => expenseType.expenses.length > 0).map(expenseType => expenseType.expenses.length)
+    labels: filteredData?.map(expenseType => expenseType.name),
+    datasets: [{
+      data: filteredData?.map(expenseType => expenseType.expenses.length),
+      backgroundColor: filteredData?.map(expenseType => expenseType.typeColor)
     }]
   }
 
@@ -40,38 +36,52 @@ const ExpensePage = () => {
   return (
     <div className="flex h-full">
       <SideNav/>
-      <main id="expense-page" className="m-3">
+      {isLoading ? <RecordsSkelton /> :
+      <main id="expense-page" className="m-3 w-full">
         <div className="flex balance-detail">
-          <div className="flex flex-col balance-section">
+          <div className="flex flex-col balance-section w-3/6 h-80">
             <h1>Current Expense: {data?.expenseBalance}</h1>
-            <Button className="mt-20 ms-5" onClick={() => setModalShow(true)}>Create Record</Button>
+            <Button className="mt-20 ms-5 button" onClick={() => setModalShow(true)}>Create Record</Button>
             <ExpenseForm
               show={modalShow}
               onHide={() => setModalShow(false)}
             />
           </div>
-          <div>
-            <Doughnut data={doughnutData}/>
+          <div className="w-3/6 h-80 flex justify-center">
+            <Doughnut data={doughnutData} height={320} width={320}/>
           </div>
         </div>
         {expenseRecords?.length === 0 ?
-          <div>
+          <div className="text-center">
             <h1>No Expense Record!</h1>
           </div>
           :
           <div>
+            <Card className="mb-1">
+              <Card.Body className="flex flex-row justify-between">
+                <div className="card-section">
+                  ID
+                </div>
+                <div className="card-section">
+                  Amount
+                </div>
+                <div className="card-section">
+                  Expense Type
+                </div>
+              </Card.Body>
+            </Card>
             <FadeIn>
               {expenseRecords?.map((record,index) => (
                 <Link key={index} href={`/dashboard/expense/${record.id}`}>
                   <Card className="mb-1">
                     <Card.Body className="flex flex-row justify-between">
-                      <div>
+                      <div className="card-section">
                         {record?.id}
                       </div>
-                      <div>
+                      <div className="card-section">
                         {record?.amount}
                       </div>
-                      <div>
+                      <div className="card-section">
                         {record?.expenseTypeName}
                       </div>
                     </Card.Body>
@@ -83,6 +93,7 @@ const ExpensePage = () => {
           </div>
           }
       </main>
+      }
     </div>
   )
 }

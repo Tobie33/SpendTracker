@@ -1,9 +1,9 @@
 import prisma from "../../../helpers/prismaClient.js"
-import handleErrors from "../../../helpers/handleErrors.js/index.js"
+import handleErrors from "../../../helpers/handleErrors.js"
 
 const findAndEditExpenseType = async (req, res) => {
 
-  const {method, query: {id}, body: {name}} = req
+  const {method, query: {id}, body: {name, typeColor}} = req
 
   switch(method){
     case "GET":{
@@ -27,7 +27,8 @@ const findAndEditExpenseType = async (req, res) => {
             id: Number(id)
           },
           data:{
-            name
+            name,
+            typeColor
           }
         })
 

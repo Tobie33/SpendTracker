@@ -3,6 +3,10 @@
   #income, #expense, #balance-amount, #balance-circular {
     width:50%;
     text-align: center;
+    #dashboard-doughnut{
+      width:320px !important;
+      height:320px !important;
+    }
   }
   .record-cards{
     width:50%;

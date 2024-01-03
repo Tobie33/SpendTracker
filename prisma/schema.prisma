@@ -82,13 +82,15 @@ model Expense {
 }
 
 model incomeType {
-  id      Int      @id @default(autoincrement())
-  name    String
-  incomes Income[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  incomes   Income[]
+  typeColor String   @default("")
 }
 
 model expenseType {
-  id       Int       @id @default(autoincrement())
-  name     String
-  expenses Expense[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  expenses  Expense[]
+  typeColor String    @default("")
 }

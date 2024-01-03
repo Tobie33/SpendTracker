@@ -6,7 +6,7 @@ import { authOptions } from "../auth/[...nextauth].js"
 const createAndGetIncomeTypes = async (req,res) => {
 
   const session = await getServerSession(req, res, authOptions)
-  const {method, body: {name}} = req
+  const {method, body: {name, typeColor}} = req
 
   switch(method){
 
@@ -32,7 +32,8 @@ const createAndGetIncomeTypes = async (req,res) => {
       try{
           const newIncomeType = await prisma.incomeType.create({
             data: {
-              name
+              name,
+              typeColor
             },
           })
 

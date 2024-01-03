@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth].js"
 
 const createAndGetExpenseTypes = async (req,res) => {
   const session = await getServerSession(req, res, authOptions)
-  const {method, body: {name}} = req
+  const {method, body: {name, typeColor}} = req
 
   switch(method){
 
@@ -31,7 +31,8 @@ const createAndGetExpenseTypes = async (req,res) => {
       try{
           const newExpenseType = await prisma.expenseType.create({
             data: {
-              name
+              name,
+              typeColor
             },
           })
 

@@ -3,7 +3,7 @@ import handleErrors from "../../../helpers/handleErrors.js"
 
 const findAndEditIncomeType = async (req, res) => {
 
-  const {method, query: {id}, body: {name}} = req
+  const {method, query: {id}, body: {name, typeColor}} = req
 
   switch(method){
     case "GET":{
@@ -27,7 +27,8 @@ const findAndEditIncomeType = async (req, res) => {
             id: Number(id)
           },
           data:{
-            name
+            name,
+            typeColor
           }
         })
 

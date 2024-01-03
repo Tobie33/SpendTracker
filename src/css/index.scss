@@ -1,3 +1,14 @@
+@use 'variables';
+
+*{
+  font-family: Oswald;
+  font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-weight: 600 !important;
+}
+
 .centering{
   display:flex;
   justify-content: center;
@@ -9,9 +20,14 @@ a {
 }
 
 #__next{
-  .navbar{
-    height:8vh;
+  height: 100vh;
+  .main-navbar{
+    background-color: variables.$primary-color !important;
     justify-content: space-between !important;
+    height: 10%;
+    .navbar-brand{
+      color: variables.$neutral-color;
+    }
     #login-signout{
       width: 200px;
       #user-profile-pic{
@@ -24,8 +40,8 @@ a {
     }
   }
   #main-page{
-    height:92vh;
     width:100%;
+    height:90%;
   }
 }
 
@@ -52,12 +68,41 @@ a {
       font-size: 50px;
     }
   }
-  #login-button {
+  #login-button, #dashboard-button {
+    text-align: center;
     height: 75px;
     width: 150px;
+    margin: auto;
   }
 }
 #image-section {
   width: 50%;
   height: 100%
+}
+
+.button{
+  background-color: variables.$secondary-color;
+  border: none;
+  font-weight: 500;
+}
+
+.button:hover{
+  background-color: #b31416;
+}
+
+.reverse-button{
+  color: #000000 !important;
+}
+
+.card-section{
+  width:125px;
+  text-align: center;
+}
+
+.card-section:first-child{
+  text-align: start;
+}
+
+.card-section:last-child {
+  text-align: end;
 }

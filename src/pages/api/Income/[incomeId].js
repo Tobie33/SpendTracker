@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth].js"
 
 const incomeRecordEditsAndSearch = async (req, res)=> {
   const session = await getServerSession(req, res, authOptions)
-  const {method,  body: {incomeTypeId, amount}} = await req
+  const {method,  body: {incomeId, incomeTypeId, amount}} = await req
 
   switch(method){
     case "GET":{
@@ -79,7 +79,7 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
             }
           },
           where:{
-            id: Number(id)
+            id: session.user.id
           },
         })
 

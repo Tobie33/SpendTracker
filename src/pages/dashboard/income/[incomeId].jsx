@@ -5,42 +5,41 @@ import IncomeEditForm from "../../../components/IncomeEditForm"
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import RecordSkelton from "./src/components/RecordSkeleton";
 
 const IncomePage = () => {
 
 
   const router = useRouter()
   let incomeId =  router.query.incomeId
-  const {data: record} = useIncome(incomeId)
+  const {data: record, isLoading, deleteIncome} = useIncome(incomeId)
 
   const [modalShow, setModalShow] = useState(false);
 
   return (
     <div className="m-5">
       <div className="w-full h-32">
-        <Link href={'/dashboard/income'}>Back to Income Page</Link>
+        <Link href={'/dashboard/income'} className="reverse-button"><FontAwesomeIcon icon={faArrowLeft} className="me-2"/>Back to Income Page</Link>
       </div>
-      <Card >
-        <Card.Body className="flex flex-row justify-between">
-          <div>
-            {record?.id}
-          </div>
-          <div>
-            {record?.amount}
-          </div>
-          <div>
-            {record?.incomeTypeName}
-          </div>
-        </Card.Body>
-      </Card>
-      <Button onClick={() => setModalShow(true)}>Edit Record</Button>
-      <IncomeEditForm
-        incomeid={incomeId}
-        show={modalShow}
-        record={record}
-        onHide={() => setModalShow(false)
-        }
-      />
+      {isLoading ? <RecordSkelton/> :
+      <>
+        <div className="my-10">
+          <h3>Amount: {record?.amount}</h3>
+          <h3>Income Type: {record?.incomeTypeName}</h3>
+        </div>
+        <Button className="me-3" onClick={() => setModalShow(true)}>Edit Record</Button>
+        <IncomeEditForm
+          incomeid={incomeId}
+          show={modalShow}
+          record={record}
+          onHide={() => setModalShow(false)
+          }
+        />
+        <Button className="button" onClick={() => deleteIncome(incomeId)}>Delete Record</Button>
+      </>
+      }
     </div>
   )
 

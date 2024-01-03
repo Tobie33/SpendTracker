@@ -16,11 +16,14 @@ function MainPage() {
           <h1 className="text-center topic">Track your income and expense.</h1>
           <h1 className="text-center topic">Be responsible to your spending</h1>
         </div>
-        {session ?
-        <Button href="/dashboard">To Dashboard</Button>
-        :
-        <Button id="login-button" onClick={() => {signIn('google',{callbackUrl:'/dashboard'})}}>Log in / Sign up</Button>
-        }
+        <div className="text-center">
+          {session ?
+          <Button className="button" href="/dashboard">To dashboard</Button>
+
+          :
+          <Button id="login-button" onClick={() => {signIn('google',{callbackUrl:'/dashboard'})}}>Log in / Sign up</Button>
+          }
+        </div>
       </section>
       <section id="image-section" className="centering">
         <Image

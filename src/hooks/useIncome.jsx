@@ -25,11 +25,11 @@ const useIncome = (incomeId) => {
     console.log(err)
   })
 
-  const deleteIncome = (incomeId) => axios.delete(`${apiURL}/${incomeId}`)
+  const deleteIncome = (incomeId) => axios.delete(incomeId ? `${apiURL}/${incomeId}` : null)
   .then(()=>{
     push('/dashboard/income')
   })
-  .error((err)=>{
+  .catch((err)=>{
     console.log(err)
   })
 

@@ -7,10 +7,10 @@ const PageNavbar = () => {
   const { data: session } = useSession()
 
   return (
-    <Navbar className="bg-body-tertiary px-5">
-    <div>
-        <Navbar.Brand href="/dashboard">Budget Tracker</Navbar.Brand>
-    </div>
+    <Navbar className="bg-body-tertiary px-5 main-navbar">
+      <div>
+          <Navbar.Brand href="/dashboard">Budget Tracker</Navbar.Brand>
+      </div>
         {session ?
         <div id="login-signout" className="flex justify-between items-center">
           <Image
@@ -21,7 +21,7 @@ const PageNavbar = () => {
             id="user-profile-pic"
 
             ></Image>
-          <Button className="login-signout-button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
+          <Button className="login-signout-button button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
         </div>
         :
           <Button className="login-signout-button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>

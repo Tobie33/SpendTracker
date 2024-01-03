@@ -25,12 +25,22 @@ const useExpenses = () => {
       console.log(err);
   })
 
+  const deleteExpenses = () => axios.delete(apiURL)
+  .then(() =>{
+    mutate()
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+
   return{
     data,
     mutate,
     error,
     isLoading,
-    createExpense
+    createExpense,
+    deleteExpenses
   }
 }
 
