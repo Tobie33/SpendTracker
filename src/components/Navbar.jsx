@@ -1,7 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { Navbar, Container, Button} from "react-bootstrap"
 import Image from "next/image"
-import Link from "next/link"
 
 const PageNavbar = () => {
   const { data: session } = useSession()
@@ -9,7 +8,7 @@ const PageNavbar = () => {
   return (
     <Navbar className="bg-body-tertiary px-5 main-navbar">
       <div>
-          <Navbar.Brand href="/dashboard">Budget Tracker</Navbar.Brand>
+        <Navbar.Brand href="/dashboard">Budget Tracker</Navbar.Brand>
       </div>
         {session ?
         <div id="login-signout" className="flex justify-between items-center">
@@ -19,12 +18,11 @@ const PageNavbar = () => {
             height={60}
             width={60}
             id="user-profile-pic"
-
-            ></Image>
+            />
           <Button className="login-signout-button button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
         </div>
         :
-          <Button className="login-signout-button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>
+          <Button className="login-signout-button button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>
         }
     </Navbar>
   )
