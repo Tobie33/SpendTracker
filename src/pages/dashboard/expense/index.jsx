@@ -26,10 +26,15 @@ const ExpensePage = () => {
   const doughnutData = {
     labels: filteredData?.map(expenseType => expenseType.name),
     datasets: [{
-      data: filteredData?.map(expenseType => expenseType.expenses.length),
+      data: filteredData?.map(expenseType => {
+        const amountSum = expenseType.expenses.map(expense => expense.amount)
+        return amountSum.reduce((sum, expense) => sum + expense)
+      }),
       backgroundColor: filteredData?.map(expenseType => expenseType.typeColor)
     }]
   }
+
+  console.log(expenseRecords)
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -60,7 +65,7 @@ const ExpensePage = () => {
             <Card className="mb-1">
               <Card.Body className="flex flex-row justify-between">
                 <div className="card-section">
-                  ID
+                  Time
                 </div>
                 <div className="card-section">
                   Amount
@@ -71,23 +76,27 @@ const ExpensePage = () => {
               </Card.Body>
             </Card>
             <FadeIn>
-              {expenseRecords?.map((record,index) => (
-                <Link key={index} href={`/dashboard/expense/${record.id}`}>
-                  <Card className="mb-1">
-                    <Card.Body className="flex flex-row justify-between">
-                      <div className="card-section">
-                        {record?.id}
-                      </div>
-                      <div className="card-section">
-                        {record?.amount}
-                      </div>
-                      <div className="card-section">
-                        {record?.expenseTypeName}
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Link>
-                )
+              {expenseRecords?.map((record,index) => {
+                const unformattedTime = record.date.split('T');
+                const time = unformattedTime[0].trim();
+                return (
+                  <Link key={index} href={`/dashboard/expense/${record.id}`}>
+                    <Card className="mb-1">
+                      <Card.Body className="flex flex-row justify-between">
+                        <div className="card-section">
+                          {time}
+                        </div>
+                        <div className="card-section">
+                          {record?.amount}
+                        </div>
+                        <div className="card-section">
+                          {record?.expenseTypeName}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                  )
+                }
               )}
             </FadeIn>
           </div>

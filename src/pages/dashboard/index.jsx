@@ -68,7 +68,7 @@ const Dashboard = () => {
             <Card className="mb-1">
               <Card.Body className="flex flex-row justify-between">
                 <div className="card-section">
-                  ID
+                  Time
                 </div>
                 <div className="card-section">
                   Amount
@@ -78,23 +78,27 @@ const Dashboard = () => {
                 </div>
               </Card.Body>
             </Card>
-            {data?.Incomes.map((record,index) => (
-              <Link key={index} href={`/dashboard/income/${record.id}`}>
-                <Card className="mb-1">
-                  <Card.Body className="flex flex-row justify-between">
-                    <div className="card-section">
-                      {record?.id}
-                    </div>
-                    <div className="card-section">
-                      {record?.amount}
-                    </div>
-                    <div className="card-section">
-                      {record?.incomeTypeName}
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Link>
-            ))}
+            {data?.Incomes.map((record,index) => {
+              const unformattedTime = record.date.split('T');
+              const time = unformattedTime[0].trim();
+              return (
+                <Link key={index} href={`/dashboard/income/${record.id}`}>
+                  <Card className="mb-1">
+                    <Card.Body className="flex flex-row justify-between">
+                      <div className="card-section">
+                        {time}
+                      </div>
+                      <div className="card-section">
+                        {record?.amount}
+                      </div>
+                      <div className="card-section">
+                        {record?.incomeTypeName}
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Link>
+                )
+            })}
           </FadeIn>
           </div>
           }
@@ -108,7 +112,7 @@ const Dashboard = () => {
               <Card className="mb-1">
                 <Card.Body className="flex flex-row justify-between">
                   <div className="card-section">
-                    ID
+                    Time
                   </div>
                   <div className="card-section">
                     Amount
@@ -118,23 +122,27 @@ const Dashboard = () => {
                   </div>
                 </Card.Body>
               </Card>
-              {data?.Expense.map((record,index) => (
-                <Link key={index} href={`/dashboard/expense/${record.id}`}>
-                  <Card className="mb-1">
-                    <Card.Body className="flex flex-row justify-between">
-                      <div className="card-section">
-                        {record?.id}
-                      </div>
-                      <div className="card-section">
-                        {record?.amount}
-                      </div>
-                      <div className="card-section">
-                        {record?.expenseTypeName}
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              ))}
+              {data?.Expense.map((record,index) => {
+                const unformattedTime = record.date.split('T');
+                const time = unformattedTime[0].trim();
+                return (
+                  <Link key={index} href={`/dashboard/expense/${record.id}`}>
+                    <Card className="mb-1">
+                      <Card.Body className="flex flex-row justify-between">
+                        <div className="card-section">
+                          {time}
+                        </div>
+                        <div className="card-section">
+                          {record?.amount}
+                        </div>
+                        <div className="card-section">
+                          {record?.expenseTypeName}
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                )
+              })}
             </FadeIn>
           </div>
           }

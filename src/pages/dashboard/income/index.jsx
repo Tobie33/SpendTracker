@@ -1,18 +1,15 @@
 import SideNav from "../../../components/SideNav"
 import { useSession } from "next-auth/react"
 import useUser from "../../../hooks/useUser"
-import { Button } from "react-bootstrap"
 import IncomeForm from "../../../components/IncomeForm"
 import { useState } from "react"
 import useIncomes from "../../../hooks/useIncomes"
-import Link from "next/link"
-import Card from "react-bootstrap/Card"
-import FadeIn from "react-fade-in"
 import { Doughnut } from "react-chartjs-2"
 import {Chart as ChartJS} from 'chart.js/auto'
 import useIncomeTypes from "../../../hooks/useIncomeTypes"
 import RecordsSkelton from "../../../components/RecordsSkeleton"
-
+import Cards from "../../../components/Cards"
+import { Button } from "react-bootstrap"
 
 const IncomePage = () => {
 
@@ -29,9 +26,11 @@ const IncomePage = () => {
   const doughnutData = {
     labels: filteredData?.map(incomeType => incomeType.name),
     datasets:[{
-      data: filteredData?.map(incomeType => incomeType.incomes.length),
+      data: filteredData?.map(incomeType => {
+        const amountSum = incomeType.incomes.map(income => income.amount)
+        return amountSum.reduce((sum, income) => sum + income)
+      }),
       backgroundColor: filteredData?.map(incomeType => incomeType.typeColor),
-      borderWidth:1
     }]
   }
 
@@ -58,41 +57,7 @@ const IncomePage = () => {
             <h1>No Income Record!</h1>
           </div>
           :
-          <div className="mt-3">
-            <FadeIn>
-              <Card className="mb-1">
-                <Card.Body className="flex flex-row justify-between">
-                  <div className="card-section">
-                    ID
-                  </div>
-                  <div className="card-section">
-                    Amount
-                  </div>
-                  <div className="card-section">
-                    Income Type
-                  </div>
-                </Card.Body>
-              </Card>
-              {incomeRecords?.map((record,index) => (
-                <Link key={index} href={`/dashboard/income/${record.id}`}>
-                  <Card className="mb-1">
-                    <Card.Body className="flex flex-row justify-between">
-                      <div className="card-section">
-                        {record?.id}
-                      </div>
-                      <div className="card-section">
-                        {record?.amount}
-                      </div>
-                      <div className="card-section">
-                        {record?.incomeTypeName}
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Link>
-                )
-              )}
-            </FadeIn>
-          </div>
+          <Cards records={incomeRecords}/>
           }
       </main>
       }

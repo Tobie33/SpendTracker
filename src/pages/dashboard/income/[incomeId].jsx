@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import RecordSkelton from "./src/components/RecordSkeleton";
+import RecordSkelton from "../../../components/RecordSkeleton";
 
 const IncomePage = () => {
 
