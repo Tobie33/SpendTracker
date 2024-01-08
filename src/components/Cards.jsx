@@ -3,43 +3,59 @@ import Card from "react-bootstrap/Card"
 import FadeIn from "react-fade-in"
 import { Button } from "react-bootstrap"
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons"
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons"
 
+const Cards = ({records , type, mainPage}) => {
 
-const Cards = ({records}) => {
+  console.log(type)
 
-  const [recordsss, setRecordsss] = useState(records)
-  const [ascend, setAscend] = useState(true)
+  const [cardRecords, setCardRecords] = useState(records)
+  const [TypeAscend, setTypeAscend] = useState(true)
+  const [amountAscend, setAmountAscend] = useState(true)
+  const [dateAscend, setDateAscend] = useState(true)
 
   const filteredCards = (category) => {
 
     switch(category){
       case 'incomeTypeName':
-      if(ascend){
-        setRecordsss([...recordsss].sort((a, b) => a.incomeTypeName.localeCompare(b.incomeTypeName)));
-        setAscend(currentStatus => !currentStatus)
+      if(TypeAscend){
+        setCardRecords([...cardRecords].sort((a, b) => a.incomeTypeName.localeCompare(b.incomeTypeName)));
+        setTypeAscend(currentStatus => !currentStatus)
       } else {
-        setRecordsss([...recordsss].sort((a,b) => b.incomeTypeName.localeCompare(a.incomeTypeName)));
-        setAscend(currentStatus => !currentStatus)
+        setCardRecords([...cardRecords].sort((a,b) => b.incomeTypeName.localeCompare(a.incomeTypeName)));
+        setTypeAscend(currentStatus => !currentStatus)
+      }
+      break;
+
+      case 'expenseTypeName':
+      if(TypeAscend){
+        setCardRecords([...cardRecords].sort((a, b) => a.expenseTypeName.localeCompare(b.expenseTypeName)));
+        setTypeAscend(currentStatus => !currentStatus)
+      } else {
+        setCardRecords([...cardRecords].sort((a,b) => b.expenseTypeName.localeCompare(a.expenseTypeName)));
+        setTypeAscend(currentStatus => !currentStatus)
       }
       break;
 
       case 'amount' :
-      if(ascend){
-        setRecordsss([...recordsss].sort((a,b) => a[category] - b[category]));
-        setAscend(currentStatus => !currentStatus)
+      if(amountAscend){
+        setCardRecords([...cardRecords].sort((a,b) => a[category] - b[category]));
+        setAmountAscend(currentStatus => !currentStatus)
       } else {
-        setRecordsss([...recordsss].sort((a,b) => b[category] - a[category]));
-        setAscend(currentStatus => !currentStatus)
+        setCardRecords([...cardRecords].sort((a,b) => b[category] - a[category]));
+        setAmountAscend(currentStatus => !currentStatus)
       }
       break;
 
       case 'date' :
-      if(ascend){
-        setRecordsss([...recordsss].sort((a,b) => new Date(a.date) - new Date(b.date)));
-        setAscend(currentStatus => !currentStatus)
+      if(dateAscend){
+        setCardRecords([...cardRecords].sort((a,b) => new Date(a.date) - new Date(b.date)));
+        setDateAscend(currentStatus => !currentStatus)
       } else {
-        setRecordsss([...recordsss].sort((a,b) => new Date(b.date) - new Date(a.date)));
-        setAscend(currentStatus => !currentStatus)
+        setCardRecords([...cardRecords].sort((a,b) => new Date(b.date) - new Date(a.date)));
+        setDateAscend(currentStatus => !currentStatus)
       }
       break;
     }
@@ -47,26 +63,30 @@ const Cards = ({records}) => {
 
 
   return (
-    <div className="mt-3">
+    <div className={mainPage ? "record-cards" : "mt-3"}>
       <Card className="mb-1">
         <Card.Body className="flex flex-row justify-between">
           <div className="card-section">
-            <Button onClick={() => filteredCards(`date`)}>Time</Button>
+            <Button variant="none" className="card-buttons btn-none" onClick={() => filteredCards(`date`)}>Time{dateAscend ? <FontAwesomeIcon className="ms-1" icon={faCaretUp} size="xs" /> : <FontAwesomeIcon className="ms-1" icon={faCaretDown} size="xs" />}</Button>
           </div>
           <div className="card-section">
-            <Button onClick={() => filteredCards(`amount`)}>Amount</Button>
+            <Button variant="none" className="card-buttons btn-none" onClick={() => filteredCards(`amount`)}>Amount{amountAscend ? <FontAwesomeIcon className="ms-1" icon={faCaretDown} size="xs" /> : <FontAwesomeIcon className="ms-1" icon={faCaretUp} size="xs" />}</Button>
           </div>
           <div className="card-section">
-            <Button onClick={() => filteredCards(`incomeTypeName`)}>Income Type</Button>
+          {type === 'income' ?
+            <Button variant="none" className="card-buttons btn-none" onClick={() => filteredCards(`incomeTypeName`)}>Income Type{TypeAscend ? <FontAwesomeIcon className="ms-1" icon={faCaretDown} size="xs" /> : <FontAwesomeIcon className="ms-1" icon={faCaretUp} size="xs" />}</Button>
+            :
+            <Button variant="none" className="card-buttons btn-none" onClick={() => filteredCards(`expenseTypeName`)}>Expense Type{TypeAscend ? <FontAwesomeIcon className="ms-1" icon={faCaretDown} size="xs" /> : <FontAwesomeIcon className="ms-1" icon={faCaretUp} size="xs" />}</Button>
+          }
           </div>
         </Card.Body>
       </Card>
       <FadeIn>
-        {recordsss?.map((record,index) => {
+        {cardRecords?.map((record,index) => {
           const unformattedTime = record.date.split('T');
           const time = unformattedTime[0].trim();
           return (
-            <Link key={index} href={`/dashboard/income/${record.id}`}>
+            <Link key={index} href={type === "income" ? `/dashboard/income/${record.id}` : `/dashboard/expense/${record.id}`}>
               <Card className="mb-1">
                 <Card.Body className="flex flex-row justify-between">
                   <div className="card-section">
@@ -75,9 +95,15 @@ const Cards = ({records}) => {
                   <div className="card-section">
                     {record?.amount}
                   </div>
+                  {type === 'income' ?
                   <div className="card-section">
                     {record?.incomeTypeName}
                   </div>
+                  :
+                  <div className="card-section">
+                    {record?.expenseTypeName}
+                  </div>
+                  }
                 </Card.Body>
               </Card>
             </Link>

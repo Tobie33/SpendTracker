@@ -6,13 +6,15 @@ import useIncomeTypes from '../hooks/useIncomeTypes';
 import useIncomes from '../hooks/useIncomes';
 import { useSession } from 'next-auth/react';
 import { useSWRConfig } from 'swr'
+import { incomeRecordSchema } from '../schema/incomeRecord';
+import { FALSE } from 'sass';
 
 
 
 const IncomeForm = (props) => {
 
   const { mutate } = useSWRConfig()
-  const {data: incomeTypes, error, isLoading} = useIncomeTypes()
+  const {data: incomeTypes} = useIncomeTypes()
   const {createIncome} = useIncomes()
   const {data : session} = useSession()
   const userId = session?.user?.id
@@ -23,13 +25,16 @@ const IncomeForm = (props) => {
   }
 
 
-  const {values, handleChange,handleSubmit} = useFormik({
+  const {values, errors, handleBlur, touched, handleChange,handleSubmit} = useFormik({
     initialValues: {
       amount: '',
       incomeTypeId: ''
     },
+    validationSchema: incomeRecordSchema,
     onSubmit
   });
+
+  console.log(errors)
 
   return (
     <Modal
@@ -54,15 +59,24 @@ const IncomeForm = (props) => {
               name="amount"
               onChange={handleChange}
               value={values.amount}
+              onBlur={handleBlur}
             />
+            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label> select menu</Form.Label>
-            <Form.Select onChange={handleChange} id="incomeTypeId" name="incomeTypeId">
-              {incomeTypes?.map((incomeType, index) =>(
+            <Form.Label>Income Type</Form.Label>
+            <Form.Select
+              onChange={handleChange}
+              id="incomeTypeId"
+              name="incomeTypeId"
+              onBlur={handleBlur}
+            >
+              <option value={''}>Please select an income type</option>
+              {incomeTypes?.map((incomeType, index) => (
                 <option key={index} value={incomeType.id}>{incomeType.name}</option>
               ))}
             </Form.Select>
+            {errors.incomeTypeId && touched.incomeTypeId && <Form.Label>{errors.incomeTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -70,6 +84,7 @@ const IncomeForm = (props) => {
             variant="primary"
             type="submit"
             onClick={props.onHide}
+            disabled={Object.keys(errors).length === 0 ? false : true }
           >
             Submit
           </Button>

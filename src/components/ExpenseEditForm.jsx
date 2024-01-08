@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import useExpenseTypes from '../hooks/useExpenseTypes';
 import useExpense from '../hooks/useExpense';
 import { useSWRConfig } from 'swr'
+import { expenseRecordSchema } from '../schema/expenseRecord';
 
 
 
@@ -20,12 +21,13 @@ const ExpenseEditForm = (props) => {
     mutate(`/api/Expense/${props.expenseid}`)
   }
 
-  const {values, handleChange,handleSubmit} = useFormik({
+  const {values, errors, handleBlur, touched, handleChange,handleSubmit} = useFormik({
     enableReinitialize: true,
     initialValues: {
       amount: props.record?.amount,
       expenseTypeId: props.record?.expenseTypeId
     },
+    validationSchema: expenseRecordSchema,
     onSubmit
   });
 
@@ -51,16 +53,25 @@ const ExpenseEditForm = (props) => {
               id="amount"
               name="amount"
               onChange={handleChange}
+              onBlur={handleBlur}
               value={values.amount}
             />
+            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label> select menu</Form.Label>
-            <Form.Select value={values.expenseTypeId} onChange={handleChange} id="expenseTypeId" name="expenseTypeId">
+            <Form.Select
+              value={values.expenseTypeId}
+              onChange={handleChange}
+              id="expenseTypeId"
+              name="expenseTypeId"
+              onBlur={handleBlur}
+            >
               {expenseTypes?.map((expenseType, index) =>(
                 <option key={index} value={expenseType.id}>{expenseType.name}</option>
               ))}
             </Form.Select>
+            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label>{errors.expenseTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -68,6 +79,7 @@ const ExpenseEditForm = (props) => {
             variant="primary"
             type="submit"
             onClick={props.onHide}
+            disabled={Object.keys(errors).length === 0 ? false : true }
           >
             Submit
           </Button>

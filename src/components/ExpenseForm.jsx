@@ -6,6 +6,7 @@ import useExpenseTypes from '../hooks/useExpenseTypes';
 import useExpenses from '../hooks/useExpenses';
 import { useSession } from 'next-auth/react';
 import { useSWRConfig } from 'swr'
+import { expenseRecordSchema } from '../schema/expenseRecord';
 
 
 
@@ -22,11 +23,12 @@ const ExpenseForm = (props) => {
   }
 
 
-  const {values, handleChange,handleSubmit} = useFormik({
+  const {values, errors, handleBlur, touched, handleChange,handleSubmit} = useFormik({
     initialValues: {
       amount: '',
       expenseTypeId: ''
     },
+    validationSchema: expenseRecordSchema,
     onSubmit
   });
 
@@ -52,16 +54,24 @@ const ExpenseForm = (props) => {
               id="amount"
               name="amount"
               onChange={handleChange}
+              onBlur={handleBlur}
               value={values.amount}
             />
+            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label> select menu</Form.Label>
-            <Form.Select onChange={handleChange} id="expenseTypeId" name="expenseTypeId">
+            <Form.Select
+              onChange={handleChange}
+              id="expenseTypeId"
+              name="expenseTypeId"
+              onBlur={handleBlur}
+            >
               {expenseTypes?.map((expenseType, index) =>(
                 <option key={index} value={expenseType.id}>{expenseType.name}</option>
               ))}
             </Form.Select>
+            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label>{errors.expenseTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -69,6 +79,7 @@ const ExpenseForm = (props) => {
             variant="primary"
             type="submit"
             onClick={props.onHide}
+            disabled={Object.keys(errors).length === 0 ? false : true }
           >
             Submit
           </Button>

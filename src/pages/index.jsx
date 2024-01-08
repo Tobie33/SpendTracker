@@ -9,9 +9,9 @@ import FadeIn from "react-fade-in/lib/FadeIn"
 import Link from "next/link"
 
 
-function MainPage() {
+function MainPage({text}) {
 
-
+  console.log(text)
 
   const {data : session} = useSession()
 

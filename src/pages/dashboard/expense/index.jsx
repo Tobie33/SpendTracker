@@ -12,6 +12,7 @@ import { Doughnut } from "react-chartjs-2"
 import {Chart as ChartJS} from 'chart.js/auto'
 import useExpenseTypes from "../../../hooks/useExpenseTypes"
 import RecordsSkelton from "../../../components/RecordsSkeleton"
+import Cards from "../../../components/Cards"
 
 const ExpensePage = () => {
 
@@ -61,45 +62,7 @@ const ExpensePage = () => {
             <h1>No Expense Record!</h1>
           </div>
           :
-          <div>
-            <Card className="mb-1">
-              <Card.Body className="flex flex-row justify-between">
-                <div className="card-section">
-                  Time
-                </div>
-                <div className="card-section">
-                  Amount
-                </div>
-                <div className="card-section">
-                  Expense Type
-                </div>
-              </Card.Body>
-            </Card>
-            <FadeIn>
-              {expenseRecords?.map((record,index) => {
-                const unformattedTime = record.date.split('T');
-                const time = unformattedTime[0].trim();
-                return (
-                  <Link key={index} href={`/dashboard/expense/${record.id}`}>
-                    <Card className="mb-1">
-                      <Card.Body className="flex flex-row justify-between">
-                        <div className="card-section">
-                          {time}
-                        </div>
-                        <div className="card-section">
-                          {record?.amount}
-                        </div>
-                        <div className="card-section">
-                          {record?.expenseTypeName}
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                  )
-                }
-              )}
-            </FadeIn>
-          </div>
+          <Cards records={expenseRecords} type="expense"/>
           }
       </main>
       }

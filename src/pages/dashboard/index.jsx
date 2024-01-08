@@ -8,13 +8,14 @@ import FadeIn from 'react-fade-in';
 import { Doughnut } from "react-chartjs-2"
 import {Chart as ChartJS} from 'chart.js/auto'
 import DashboardSkeleton from "../../components/DashboardSkeleton"
-
-
+import Cards from "../../components/Cards"
+import { useRouter } from "next/navigation"
 
 const Dashboard = () => {
-  const {data : session} = useSession()
+  const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data, isLoading} = useUser(userId)
+  const router = useRouter()
 
   const chartData = {
     labels: [
@@ -35,7 +36,9 @@ const Dashboard = () => {
 
   const balance = data?.incomeBalance + data?.expenseBalance
 
-
+  if (status === "unauthenticated") {
+      router.push('/', data)
+  }
 
   return (
     <main id="main-page" className="flex">
@@ -63,88 +66,14 @@ const Dashboard = () => {
             <h1>No Income Record!</h1>
           </div>
           :
-          <div className="record-cards">
-          <FadeIn>
-            <Card className="mb-1">
-              <Card.Body className="flex flex-row justify-between">
-                <div className="card-section">
-                  Time
-                </div>
-                <div className="card-section">
-                  Amount
-                </div>
-                <div className="card-section">
-                  Income Type
-                </div>
-              </Card.Body>
-            </Card>
-            {data?.Incomes.map((record,index) => {
-              const unformattedTime = record.date.split('T');
-              const time = unformattedTime[0].trim();
-              return (
-                <Link key={index} href={`/dashboard/income/${record.id}`}>
-                  <Card className="mb-1">
-                    <Card.Body className="flex flex-row justify-between">
-                      <div className="card-section">
-                        {time}
-                      </div>
-                      <div className="card-section">
-                        {record?.amount}
-                      </div>
-                      <div className="card-section">
-                        {record?.incomeTypeName}
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Link>
-                )
-            })}
-          </FadeIn>
-          </div>
+          <Cards records={data?.Incomes} type="income" mainPage={true}/>
           }
           {data?.Expense.length === 0 ?
           <div className="record-cards text-center">
             <h1>No Expense Record!</h1>
           </div>
           :
-          <div className="record-cards">
-            <FadeIn>
-              <Card className="mb-1">
-                <Card.Body className="flex flex-row justify-between">
-                  <div className="card-section">
-                    Time
-                  </div>
-                  <div className="card-section">
-                    Amount
-                  </div>
-                  <div className="card-section">
-                    Income Type
-                  </div>
-                </Card.Body>
-              </Card>
-              {data?.Expense.map((record,index) => {
-                const unformattedTime = record.date.split('T');
-                const time = unformattedTime[0].trim();
-                return (
-                  <Link key={index} href={`/dashboard/expense/${record.id}`}>
-                    <Card className="mb-1">
-                      <Card.Body className="flex flex-row justify-between">
-                        <div className="card-section">
-                          {time}
-                        </div>
-                        <div className="card-section">
-                          {record?.amount}
-                        </div>
-                        <div className="card-section">
-                          {record?.expenseTypeName}
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                )
-              })}
-            </FadeIn>
-          </div>
+          <Cards records={data?.Expense} type="expense" mainPage={true}/>
           }
         </div>
       </div>
@@ -152,7 +81,5 @@ const Dashboard = () => {
     </main>
   )
 }
-
-
 
 export default Dashboard

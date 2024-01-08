@@ -57,7 +57,7 @@ const IncomePage = () => {
             <h1>No Income Record!</h1>
           </div>
           :
-          <Cards records={incomeRecords}/>
+          <Cards records={incomeRecords} type="income"/>
           }
       </main>
       }
