@@ -16,7 +16,7 @@ import Cards from "../../../components/Cards"
 
 const ExpensePage = () => {
 
-  const {data : session} = useSession()
+  const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
   const {data: expenseRecords, isLoading, deleteExpenses} = useExpenses()
@@ -35,7 +35,9 @@ const ExpensePage = () => {
     }]
   }
 
-  console.log(expenseRecords)
+  if (status === "unauthenticated") {
+      router.push('/', data)
+  }
 
   const [modalShow, setModalShow] = useState(false);
 

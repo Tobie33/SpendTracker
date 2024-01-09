@@ -13,7 +13,7 @@ import { Button } from "react-bootstrap"
 
 const IncomePage = () => {
 
-  const {data : session} = useSession()
+  const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
   const {data: incomeRecords, isLoading} = useIncomes()
@@ -32,6 +32,10 @@ const IncomePage = () => {
       }),
       backgroundColor: filteredData?.map(incomeType => incomeType.typeColor),
     }]
+  }
+
+  if (status === "unauthenticated") {
+      router.push('/', data)
   }
 
   return (

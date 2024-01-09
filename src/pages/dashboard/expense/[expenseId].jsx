@@ -12,6 +12,12 @@ import RecordSkelton from "../../../components/RecordSkeleton";
 
 const ExpensePage = () => {
 
+  const {status} = useSession()
+
+  if (status === "unauthenticated") {
+    router.push('/', data)
+  }
+
   const router = useRouter()
   let expenseId =  router.query.expenseId
   const {data: record, isLoading, deleteExpense} = useExpense(expenseId)
