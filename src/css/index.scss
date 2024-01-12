@@ -60,34 +60,44 @@ a {
 }
 
 #topics-button {
-  width: 35%;
-  #upper-topic-section{
-    border-bottom: variables.$primary-color solid 2px;
-  }
   .topic {
-    font-size: 45px;
+    font-size: 60px;
+    font-weight: 900;
+    font-family: Helvetica;
   }
-  #login-button, #dashboard-button, #ifec-button {
+  #login-button, #dashboard-button{
     height: 65px;
     width: 150px;
   }
   .main-page-buttons{
-    font-size: 1.2em;
+    background-color: transparent;
+    color:black;
+    border: black solid 3px;
+    border-radius: 50px;
   }
 }
+
 #image-section {
   width: 35%;
   height: 100%
 }
 
-.button{
+.delete-logout-button{
   background-color: variables.$secondary-color;
   border: none;
   font-weight: 500;
 }
 
-.button:hover{
+.delete-logout-button:hover{
   background-color: #b31416;
+}
+
+.delete-logout-button:active {
+  background-color: #b31416 !important;
+}
+
+.delete-logout-button:focus {
+  background-color: #f33d40;
 }
 
 .reverse-button{

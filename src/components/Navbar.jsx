@@ -3,7 +3,8 @@ import { Navbar, Container, Button} from "react-bootstrap"
 import Image from "next/image"
 
 const PageNavbar = () => {
-  const { data: session } = useSession()
+
+  const {data: session} = useSession()
 
   return (
     <Navbar className="bg-body-tertiary px-5 main-navbar">
@@ -19,10 +20,10 @@ const PageNavbar = () => {
             width={60}
             id="user-profile-pic"
             />
-          <Button className="login-signout-button button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
+          <Button className="login-signout-button delete-logout-button" onClick={() => signOut({callbackUrl: '/'})}>Sign out</Button>
         </div>
         :
-          <Button className="login-signout-button button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>
+          <Button className="login-signout-button" onClick={() => signIn('google', {callbackUrl: '/dashboard'})}>Log in / Sign in</Button>
         }
     </Navbar>
   )

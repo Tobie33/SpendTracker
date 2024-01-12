@@ -10,9 +10,12 @@ import useIncomeTypes from "../../../hooks/useIncomeTypes"
 import RecordsSkelton from "../../../components/RecordsSkeleton"
 import Cards from "../../../components/Cards"
 import { Button } from "react-bootstrap"
+import { useRouter } from "next/navigation"
 
-const IncomePage = () => {
 
+const IncomesPage = () => {
+
+  const router = useRouter()
   const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
@@ -69,4 +72,4 @@ const IncomePage = () => {
   )
 }
 
-export default IncomePage
+export default IncomesPage

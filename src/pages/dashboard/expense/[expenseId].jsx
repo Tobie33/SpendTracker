@@ -2,13 +2,12 @@ import useExpense from "../../../hooks/useExpense"
 import { Button } from "react-bootstrap"
 import { useState } from "react"
 import ExpenseEditForm from "../../../components/ExpenseEditForm"
-import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import RecordSkelton from "../../../components/RecordSkeleton";
-
+import { useSession } from "next-auth/react";
 
 const ExpensePage = () => {
 

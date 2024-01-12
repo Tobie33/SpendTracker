@@ -44,40 +44,40 @@ const Dashboard = () => {
     <main id="main-page" className="flex">
       <SideNav/>
       {
-        isLoading ?
-        <DashboardSkeleton />
-        :
-      <div id="dashboard-page" className="m-3">
-        <div className="flex">
-          <div id="balance-amount">
-            <h1>Balance: {balance}</h1>
-          </div>
-          <div id="balance-circular" className="h-80 flex justify-center">
-            <Doughnut id="dashboard-doughnut" data={chartData} height={320} width={320}/>
-          </div>
-        </div>
-        <div id="income-expense" className="flex my-10">
-          <h2 id="income">Income: {data?.incomeBalance }</h2>
-          <h2 id="expense">Expense: {data?.expenseBalance}</h2>
-        </div>
-        <div id="record-cards" className="d-flex gap-x-5">
-          {data?.Incomes.length === 0 ?
-          <div className="record-cards text-center">
-            <h1>No Income Record!</h1>
-          </div>
+          isLoading ?
+          <DashboardSkeleton />
           :
-          <Cards records={data?.Incomes} type="income" mainPage={true}/>
-          }
-          {data?.Expense.length === 0 ?
-          <div className="record-cards text-center">
-            <h1>No Expense Record!</h1>
+        <div id="dashboard-page" className="m-3">
+          <div className="flex">
+            <div id="balance-amount">
+              <h1>Balance: {balance}</h1>
+            </div>
+            <div id="balance-circular" className="h-80 flex justify-center">
+              <Doughnut id="dashboard-doughnut" data={chartData} height={320} width={320}/>
+            </div>
           </div>
-          :
-          <Cards records={data?.Expense} type="expense" mainPage={true}/>
-          }
+          <div id="income-expense" className="flex my-10">
+            <h2 id="income">Income: {data?.incomeBalance }</h2>
+            <h2 id="expense">Expense: {data?.expenseBalance}</h2>
+          </div>
+          <div id="record-cards" className="d-flex gap-x-5">
+            {data?.Incomes.length === 0 ?
+            <div className="record-cards text-center">
+              <h1>No Income Record!</h1>
+            </div>
+            :
+            <Cards records={data?.Incomes} type="income" mainPage={true}/>
+            }
+            {data?.Expense.length === 0 ?
+            <div className="record-cards text-center">
+              <h1>No Expense Record!</h1>
+            </div>
+            :
+            <Cards records={data?.Expense} type="expense" mainPage={true}/>
+            }
+          </div>
         </div>
-      </div>
-      }
+        }
     </main>
   )
 }

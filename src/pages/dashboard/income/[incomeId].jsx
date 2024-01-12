@@ -2,12 +2,12 @@ import useIncome from "../../../hooks/useIncome"
 import { Button } from "react-bootstrap"
 import { useState } from "react"
 import IncomeEditForm from "../../../components/IncomeEditForm"
-import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router'
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import RecordSkelton from "../../../components/RecordSkeleton";
+import { useSession } from "next-auth/react";
 
 const IncomePage = () => {
 

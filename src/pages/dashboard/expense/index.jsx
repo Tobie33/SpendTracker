@@ -5,17 +5,16 @@ import { Button } from "react-bootstrap"
 import ExpenseForm from "../../../components/ExpenseForm"
 import { useState } from "react"
 import useExpenses from "../../../hooks/useExpenses"
-import Link from "next/link"
-import Card from "react-bootstrap/Card"
-import FadeIn from "react-fade-in/lib/FadeIn"
 import { Doughnut } from "react-chartjs-2"
 import {Chart as ChartJS} from 'chart.js/auto'
 import useExpenseTypes from "../../../hooks/useExpenseTypes"
 import RecordsSkelton from "../../../components/RecordsSkeleton"
 import Cards from "../../../components/Cards"
+import { useRouter } from "next/navigation"
 
 const ExpensePage = () => {
 
+  const router = useRouter()
   const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
