@@ -18,8 +18,8 @@ const ExpenseForm = (props) => {
   const userId = session?.user?.id
 
   const onSubmit = (e) => {
-    console.log(e)
     createExpense(e.amount, e.expenseTypeId, userId)
+    mutate('/api/Expense')
   }
 
 
@@ -56,22 +56,25 @@ const ExpenseForm = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.amount}
+              className={errors.amount && touched.amount && 'error'}
             />
-            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
+            {errors.amount && touched.amount && <Form.Label className='error-label ms-1'>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label> select menu</Form.Label>
+            <Form.Label>Expense Type</Form.Label>
             <Form.Select
               onChange={handleChange}
               id="expenseTypeId"
               name="expenseTypeId"
               onBlur={handleBlur}
+              className={errors.expenseTypeId && touched.expenseTypeId && 'error'}
             >
+            <option value={''} disabled selected>Please select an expense type</option>
               {expenseTypes?.map((expenseType, index) =>(
                 <option key={index} value={expenseType.id}>{expenseType.name}</option>
               ))}
             </Form.Select>
-            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label>{errors.expenseTypeId}</Form.Label>}
+            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label className='error-label ms-1'>{errors.expenseTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

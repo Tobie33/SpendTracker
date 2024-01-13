@@ -15,7 +15,7 @@ function MainPage({text}) {
   const {data : session} = useSession()
 
   return (
-    <main id="main-page" className="flex items-center flex-col">
+    <main id="main-page" className="flex items-center flex-col w-full">
       <section id="topics-button">
         <div id="upper-topic-section">
           <div id="topics" className="my-12">

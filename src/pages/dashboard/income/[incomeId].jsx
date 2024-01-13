@@ -42,7 +42,7 @@ const IncomePage = () => {
           onHide={() => setModalShow(false)
           }
         />
-        <Button className="button" onClick={() => deleteIncome(incomeId)}>Delete Record</Button>
+        <Button className="button delete-logout-button" onClick={() => deleteIncome(incomeId)}>Delete Record</Button>
       </>
       }
     </div>

@@ -55,23 +55,25 @@ const ExpenseEditForm = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.amount}
+              className={errors.amount && touched.amount && 'error'}
             />
-            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
+            {errors.amount && touched.amount && <Form.Label className='error-label ms-1'>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label> select menu</Form.Label>
+            <Form.Label>Expense Type</Form.Label>
             <Form.Select
               value={values.expenseTypeId}
               onChange={handleChange}
               id="expenseTypeId"
               name="expenseTypeId"
               onBlur={handleBlur}
+              className={errors.expenseTypeId && touched.expenseTypeId && 'error'}
             >
               {expenseTypes?.map((expenseType, index) =>(
                 <option key={index} value={expenseType.id}>{expenseType.name}</option>
               ))}
             </Form.Select>
-            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label>{errors.expenseTypeId}</Form.Label>}
+            {errors.expenseTypeId && touched.expenseTypeId && <Form.Label className='error-label ms-1'>{errors.expenseTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

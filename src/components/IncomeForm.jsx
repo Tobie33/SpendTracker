@@ -60,8 +60,9 @@ const IncomeForm = (props) => {
               onChange={handleChange}
               value={values.amount}
               onBlur={handleBlur}
+              className={errors.amount && touched.amount && 'error'}
             />
-            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
+            {errors.amount && touched.amount && <Form.Label className='error-label ms-1'>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Income Type</Form.Label>
@@ -70,13 +71,14 @@ const IncomeForm = (props) => {
               id="incomeTypeId"
               name="incomeTypeId"
               onBlur={handleBlur}
+              className={errors.incomeTypeId && touched.incomeTypeId && 'error'}
             >
-              <option value={''}>Please select an income type</option>
+              <option value={''} disabled selected>Please select an income type</option>
               {incomeTypes?.map((incomeType, index) => (
                 <option key={index} value={incomeType.id}>{incomeType.name}</option>
               ))}
             </Form.Select>
-            {errors.incomeTypeId && touched.incomeTypeId && <Form.Label>{errors.incomeTypeId}</Form.Label>}
+            {errors.incomeTypeId && touched.incomeTypeId && <Form.Label className='error-label ms-1'>{errors.incomeTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

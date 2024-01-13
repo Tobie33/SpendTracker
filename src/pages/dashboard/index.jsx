@@ -41,7 +41,7 @@ const Dashboard = () => {
   }
 
   return (
-    <main id="main-page" className="flex">
+    <main id="main-page" className="flex w-full">
       <SideNav/>
       {
           isLoading ?

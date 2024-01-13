@@ -42,7 +42,7 @@ const ExpensePage = () => {
           onHide={() => setModalShow(false)
           }
         />
-        <Button className="button" onClick={() => deleteExpense(expenseId)}>Delete Record</Button>
+        <Button className="button delete-logout-button" onClick={() => deleteExpense(expenseId)}>Delete Record</Button>
       </>
       }
     </div>

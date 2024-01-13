@@ -1,0 +1,73 @@
+@use 'variables';
+
+* {
+  font-family: Oswald;
+  font-weight: 500;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 600 !important;
+}
+
+.centering {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.delete-logout-button {
+  background-color: variables.$secondary-color;
+  border: none;
+  font-weight: 500;
+}
+
+.delete-logout-button:hover {
+  background-color: #b31416;
+}
+
+.delete-logout-button:active {
+  background-color: #b31416 !important;
+}
+
+.delete-logout-button:focus {
+  background-color: #f33d40;
+}
+
+.reverse-button {
+  color: #000000 !important;
+}
+
+.card-section {
+  width: 150px;
+  text-align: center;
+}
+
+.card-section:first-child {
+  text-align: start;
+}
+
+.card-section:last-child {
+  text-align: end;
+}
+
+.main-page-pics {
+  width: 400px;
+  height: 300px;
+}
+
+.card-buttons {
+  border: none !important
+}
+
+.error {
+  border: #cc0000 solid 2px;
+}
+
+.error-label {
+  color: #cc0000;
+  font-size: 0.85em;
+}

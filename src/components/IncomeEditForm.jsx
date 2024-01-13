@@ -56,23 +56,25 @@ const IncomeEditForm = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.amount}
+              className={errors.amount && touched.amount && 'error'}
             />
-            {errors.amount && touched.amount && <Form.Label>{errors.amount}</Form.Label>}
+            {errors.amount && touched.amount && <Form.Label className='error-label ms-1'>{errors.amount}</Form.Label>}
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label> select menu</Form.Label>
+            <Form.Label>Income Type</Form.Label>
             <Form.Select
               value={values.incomeTypeId}
               onChange={handleChange}
               id="incomeTypeId"
               name="incomeTypeId"
               onBlur={handleBlur}
+              className={errors.incomeTypeId && touched.incomeTypeId && 'error'}
             >
               {incomeTypes?.map((incomeType, index) =>(
                 <option key={index} value={incomeType.id}>{incomeType.name}</option>
               ))}
             </Form.Select>
-            {errors.incomeTypeId && touched.incomeTypeId && <Form.Label>{errors.incomeTypeId}</Form.Label>}
+            {errors.incomeTypeId && touched.incomeTypeId && <Form.Label className='error-label ms-1'>{errors.incomeTypeId}</Form.Label>}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
