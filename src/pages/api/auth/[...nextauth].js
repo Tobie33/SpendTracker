@@ -16,6 +16,7 @@ export const authOptions = {
     // ...add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   callbacks: {
     async session({ session, user }) {
       // Send properties to the client, like an access_token from a provider.
