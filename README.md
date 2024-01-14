@@ -1,7 +1,8 @@
 <h1>Budget Tracker (Full Stack)</h1>
 This is a fullstack website that users can individually login through google and have their budget tracked through adding records of incomes and expenses.
 The website has a few features that help users get more in-depth information of their spending habits.
-![main-page](https://github.com/Tobie33/SpendTracker/assets/102716340/04974fca-c7b3-488a-a18f-e43f295062b9)
+
+![main-page](https://github.com/Tobie33/SpendTracker/assets/102716340/723201d4-27ed-44fc-b915-ff1ca55dbc8c)
 
 - Charts
   Charts are most useful for data analysis. As of right now there is only a doughnut chart displaying the user's incomes and expenses, and their categories respectively. More charts will be implemented in future versions.
