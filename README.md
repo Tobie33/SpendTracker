@@ -20,4 +20,4 @@ https://github.com/Tobie33/SpendTracker/assets/102716340/d3212349-bde2-4eff-9334
 
 The website is a practise of full stack web developing. More updates will be published in the near future, regards of UI advancement and more features.
 
-Skill used: Javscript, HTML, React, FontAwesome, Bootstrap, React-Bootstrap, Sass, Next js, Prisma, Formik, Nodejs, Chart.js, React-fade-in, React-loading-skeleton, Swr, Yup, PostgreSQL
+Skill used: Javscript, HTML, React, FontAwesome, Bootstrap, React-Bootstrap, Sass, Next js, Prisma, Formik, Chart.js, React-fade-in, React-loading-skeleton, Swr, Yup, PostgreSQL
