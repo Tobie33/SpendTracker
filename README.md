@@ -8,16 +8,19 @@ The website has a few features that help users get more in-depth information of 
 <h2>Charts</h2>
 
   Charts are most useful for data analysis. As of right now there is only a doughnut chart displaying the user's incomes and expenses, and their categories respectively. More charts will be implemented in future versions.
-![dashboard](https://github.com/Tobie33/SpendTracker/assets/102716340/68d76dd6-b27e-4a64-b163-d866b31cd7d2)
+![dashboardPage](https://github.com/Tobie33/SpendTracker/assets/102716340/855e4146-d3e8-4769-9ba9-15ada2476240)
+![IncomePage](https://github.com/Tobie33/SpendTracker/assets/102716340/68baafc2-2c93-416a-b5ba-a5a6653132d8)
 
-![Income](https://github.com/Tobie33/SpendTracker/assets/102716340/ab1cf5a9-f8e4-4206-9862-ba7a87b32a0c)
 
 <h2>Sorting</h2>
 
   Users can sort their income and expense records by categories (Date, Amount, Type), Users get more in-depth knowledge of their budget.
 
 
-https://github.com/Tobie33/SpendTracker/assets/102716340/d3212349-bde2-4eff-9334-2e5c847ec813
+
+https://github.com/Tobie33/SpendTracker/assets/102716340/6db0b7af-33aa-487a-a37a-0f80ac8bfabd
+
+
 
 
 
