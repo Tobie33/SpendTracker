@@ -7,7 +7,7 @@ The website is a practise of full stack web developing. More updates will be pub
 
 <h2>Charts</h2>
 
-  Charts are most useful for data analysis. As of right now there is only a doughnut chart displaying the user's incomes and expenses, and their categories respectively. More charts will be implemented in future versions.
+  <p>Charts are most useful for data analysis. As of right now there is only a doughnut chart displaying the user's incomes and expenses, and their categories respectively. More charts will be implemented in future versions.</p>
 ![dashboard](https://github.com/Tobie33/SpendTracker/assets/102716340/38d6a997-1125-4f47-91b0-41aa4fe7e72f)
 ![Income](https://github.com/Tobie33/SpendTracker/assets/102716340/00a0e354-7896-4b32-9fbf-f4799671bcc9)
 
