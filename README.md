@@ -3,13 +3,13 @@ This is a fullstack website that users can individually login through google and
 The website has a few features that help users get more in-depth information of their spending habits. <br/>
 *Currently debugging for deployment issues*
 
-![mainPage](https://github.com/Tobie33/SpendTracker/assets/102716340/f88514b0-0cad-4579-867b-b780de14d0ef)
+![main-page](https://github.com/Tobie33/SpendTracker/assets/102716340/e95df5a1-8902-461a-86b4-eaf94d0a461b)
 
 <h2>Charts</h2>
 
   Charts are most useful for data analysis. As of right now there is only a doughnut chart displaying the user's incomes and expenses, and their categories respectively. More charts will be implemented in future versions.
-![dashboardPage](https://github.com/Tobie33/SpendTracker/assets/102716340/855e4146-d3e8-4769-9ba9-15ada2476240)
-![IncomePage](https://github.com/Tobie33/SpendTracker/assets/102716340/68baafc2-2c93-416a-b5ba-a5a6653132d8)
+![dashboard](https://github.com/Tobie33/SpendTracker/assets/102716340/38d6a997-1125-4f47-91b0-41aa4fe7e72f)
+![Income](https://github.com/Tobie33/SpendTracker/assets/102716340/00a0e354-7896-4b32-9fbf-f4799671bcc9)
 
 
 <h2>Sorting</h2>
