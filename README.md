@@ -1,5 +1,5 @@
 <h1>Budget Tracker (Full Stack)</h1>
-<b>Currently debugging for deployment issues</b>
+<b>Currently debugging for deployment issues</b></br>
 
 This is a fullstack website that users can individually login through google and have their budget tracked through adding records of incomes and expenses.
 The website has a few features that help users get more in-depth information of their spending habits. <br/>
