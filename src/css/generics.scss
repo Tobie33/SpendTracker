@@ -1,8 +1,12 @@
 @use 'variables';
 
+@font-face {
+  font-family: "Oursky";
+  src: url("font/orkney-regular.otf")format('opentype');
+}
 * {
-  font-family: Oswald;
-  font-weight: 500;
+  font-family: Oursky;
+  font-weight: 200;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -52,11 +56,6 @@ a {
 
 .card-section:last-child {
   text-align: end;
-}
-
-.main-page-pics {
-  width: 400px;
-  height: 300px;
 }
 
 .card-buttons {

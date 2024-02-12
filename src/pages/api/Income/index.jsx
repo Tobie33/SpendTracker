@@ -64,14 +64,14 @@ const incomeRecord = async (req, res) => {
     case "DELETE": {
       await prisma.income.deleteMany({
         where:{
-          userId: "clpbc93740009rcunk749qrvl"
+          userId: session.user.id
         }
       })
 
 
       await prisma.user.update({
         where:{
-          id: "clpbc93740009rcunk749qrvl"
+          id: session.user.id
         },
         data:{
           incomeBalance: 0

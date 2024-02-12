@@ -15,11 +15,12 @@ function MainPage({text}) {
   const {data : session} = useSession()
 
   return (
-    <main id="main-page" className="flex items-center flex-col w-full">
+    <main id="front-main-page" className="flex items-center flex-col w-full">
       <section id="topics-button">
         <div id="upper-topic-section">
           <div id="topics" className="my-12">
-            <h1 className="topic text-center">Start Tracking your budget today</h1>
+            <h1 className="topic text-center">Budget Tracker</h1>
+            <h2>Start tracking your budget today</h2>
           </div>
           <div className="text-center mb-10">
             {session ?

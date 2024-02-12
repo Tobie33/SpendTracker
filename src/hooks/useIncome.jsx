@@ -9,6 +9,8 @@ const apiURL = '/api/Income'
 
 const useIncome = (incomeId) => {
 
+  console.log(incomeId)
+
   const {push} = useRouter()
 
   const {data, mutate, error, isLoading} = useSWR(incomeId ? `${apiURL}/${incomeId}` : null, fetcher)
@@ -28,6 +30,7 @@ const useIncome = (incomeId) => {
   const deleteIncome = (incomeId) => axios.delete(incomeId ? `${apiURL}/${incomeId}` : null)
   .then(()=>{
     push('/dashboard/income')
+    mutate(`${apiURL}/${incomeId}`)
   })
   .catch((err)=>{
     console.log(err)

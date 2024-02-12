@@ -18,8 +18,10 @@ const useExpenses = () => {
     amount: Number(amount),
     expenseTypeId: Number(expenseTypeId),
     })
-    .then((res) =>
+    .then((res) => {
       push(`/dashboard/expense/${res.data.id}`)
+      mutate(apiURL)
+      }
     )
     .catch((err) => {
       console.log(err);

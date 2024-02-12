@@ -1,8 +1,20 @@
+
+@font-face {
+  font-family: "Oursky Bold";
+  src: url("font/orkney-bold.otf")format('opentype');
+}
+
+#front-main-page{
+  background-image: url(../../public/images/main-page-background.jpg);
+  background-size: cover ;
+  height:90%;
+}
+
 #topics-button {
   .topic {
     font-size: 60px;
     font-weight: 900;
-    font-family: Helvetica;
+    font-family: "Oursky Bold";
   }
   #login-button, #dashboard-button{
     height: 65px;

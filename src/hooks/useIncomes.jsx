@@ -25,12 +25,21 @@ const useIncomes = () => {
       console.log(err);
   })
 
+  const deleteIncome = () => axios.delete(apiURL)
+  .then(() =>{
+    mutate()
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
   return{
     data,
     mutate,
     error,
     isLoading,
-    createIncome
+    createIncome,
+    deleteIncome
   }
 }
 

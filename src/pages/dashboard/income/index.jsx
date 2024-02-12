@@ -19,7 +19,7 @@ const IncomesPage = () => {
   const {data : session, status} = useSession()
   const userId = session?.user?.id
   const {data} = useUser(userId)
-  const {data: incomeRecords, isLoading} = useIncomes()
+  const {data: incomeRecords, isLoading, deleteIncome} = useIncomes()
   const {data: incomeTypes} = useIncomeTypes()
 
   const [modalShow, setModalShow] = useState(false);

@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth].js"
 
 const incomeRecordEditsAndSearch = async (req, res)=> {
   const session = await getServerSession(req, res, authOptions)
-  const {method,  body: {incomeId, incomeTypeId, amount}} = await req
+  const {method, query:{incomeId}, body: {incomeTypeId, amount}} = await req
 
   switch(method){
     case "GET":{
@@ -74,7 +74,7 @@ const incomeRecordEditsAndSearch = async (req, res)=> {
 
         await prisma.user.update({
           data:{
-            balance:{
+            incomeBalance:{
               decrement: amount
             }
           },

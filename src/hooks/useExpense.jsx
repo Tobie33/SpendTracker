@@ -26,6 +26,7 @@ const useExpense = (expenseId) => {
 
   const deleteExpense = (expenseId) => axios.delete(expenseId ? `${apiURL}/${expenseId}` : null)
   .then(()=>{
+    mutate('/api/Expense')
     push('/dashboard/expense')
   })
   .catch(err => {
